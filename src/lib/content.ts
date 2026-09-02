@@ -1,0 +1,51 @@
+import { members } from "@/lib/members";
+
+export type { Member } from "@/lib/members";
+export { members, memberSlug } from "@/lib/members";
+
+const featuredNames = ["FOOBU", "Hrafna", "Maxisle"];
+export const featuredMembers = featuredNames.map(name => {
+  const member = members.find(candidate => candidate.name === name);
+  if (!member) throw new Error(`Featured member not found: ${name}`);
+  return member;
+});
+
+export type Activity = { title: string; image: string; label: string; description: string };
+export type Video = { title: string; thumbnail: string; source: string; label: string };
+
+export const activities: Activity[] = [
+  { title: "Guild gatherings", image: "/images/events/Guild Picture Aura-1600.webp", label: "In good company", description: "The people, screenshots, and stories that make an ordinary session worth remembering." },
+  { title: "Shared adventures", image: "/images/events/AiyariaAura-1600.webp", label: "Any afternoon", description: "Roam the world at a pace that leaves room for detours, discoveries, and a little chaos." },
+  { title: "GvG, gently", image: "/images/events/SchalxFoobu-1600.webp", label: "Together", description: "Show up, learn together, and keep the mood lighter than the scoreboard." },
+  { title: "The long table", image: "/images/events/GPic-1600.webp", label: "A place to return to", description: "Different schedules and different paths, with a seat waiting whenever you return." },
+];
+
+export const videos: Video[] = [
+  { title: "Adobo Airlines", thumbnail: "/videos/videos/Ambón POV Adobo Airlines.jpg", source: "/videos/videos/Ambón POV Adobo Airlines.mp4", label: "Field note 01" },
+  { title: "Mahjong Distraction", thumbnail: "/videos/videos/Ambón POV Mahjong Distraction.jpg", source: "/videos/videos/Ambón POV Mahjong Distraction.mp4", label: "Field note 02" },
+  { title: "Aura Farm", thumbnail: "/videos/videos/Calialy Aura Farm.jpg", source: "/videos/videos/Calialy Aura Farm.mp4", label: "Field note 03" },
+  { title: "Pictorial Gone Wrong", thumbnail: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.jpg", source: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.mp4", label: "Field note 04" },
+  { title: "Denying Fanbrella", thumbnail: "/videos/videos/Schalsweiser Denying Fanbrella.jpg", source: "/videos/videos/Schalsweiser Denying Fanbrella.mp4", label: "Field note 05" },
+];
+
+export const faqs = [
+  ["Is Adobo competitive?", "We can enjoy GvG without making it the whole point. People matter more than results, and a good laugh is always a valid outcome."],
+  ["Can casual players join?", "Yes. Adobo is for Wanderers finding their own rhythm, whether that means weeknight visits, weekend adventures, or the occasional hello."],
+  ["Do I need to be highly active?", "No attendance sheet, no pressure. The path will still be here when you have time to wander again."],
+  ["What kind of people are you looking for?", "Warm, respectful people with a sense of humor who would rather share a story than prove a point."],
+] as const;
+
+export const rules = [
+  ["01. Respect Everyone", "Treat every member with respect. Friendly banter and jokes are welcome, but harassment, bullying, discrimination, personal attacks, and deliberately making others uncomfortable are not.\n\nWe want Adobo to be a place where everyone feels welcome."],
+  ["02. No Unnecessary Drama", "Leave the drama outside the guild.\n\nMisunderstandings happen, and not everyone will always get along. If you have a problem with another member, handle it maturely or ask an officer for help. Do not create public arguments, spread rumors, or turn personal issues into guild problems."],
+  ["03. Play Your Way, Respect Others", "We're a casual and stress-free guild. There are no expectations to play every day or keep up with everyone else's progress.\n\nPlay at your own pace, but don't shame others for being more casual, more active, stronger, weaker, experienced, or new to the game.\n\nEveryone enjoys the game differently."],
+  ["04. Have Fun, But Don't Ruin It for Others", "We love joking around, laughing when we lose, and laughing even harder when we win.\n\nHave fun and be chaotic when the moment calls for it, but know the difference between harmless fun and behavior that ruins someone else's experience."],
+  ["05. No Toxicity During Guild Activities", "Whether we win or lose, keep it respectful.\n\nDon't blame, insult, or single out members for mistakes. We can always improve, learn, and try again. Losing is part of the game, and nobody should be afraid to join an activity because they're worried about being flamed."],
+  ["06. Help When You Can", "You don't have to be an expert or carry everyone.\n\nIf you can help a fellow Adobo member with content, answer a question, or share useful information, we encourage you to do so. A good guild grows because its members support each other."],
+  ["07. Don't Take Advantage of Others", "Be fair when dealing with guild members.\n\nScamming, intentionally misleading others, exploiting members, or taking advantage of someone's trust will not be tolerated. Respect the time, effort, and generosity of others."],
+  ["08. Keep Guild Spaces Comfortable", "Please use common sense in guild chat, Discord, and other community spaces.\n\nAvoid excessive spam, disruptive behavior, inappropriate content, or anything that makes the community uncomfortable. Friendly conversations are encouraged, just remember that this is a shared space."],
+  ["09. Communicate and Be Considerate", "You don't have to be active 24/7, but communication goes a long way.\n\nIf you've signed up for an activity or committed to something, try your best to show up. If something comes up, let the group know when possible. Respect other people's time just as you would want yours respected."],
+  ["10. Listen to the Leadership Team", "Guild leaders and officers are here to help maintain a healthy community, not to control how you play the game.\n\nIf an issue requires intervention, please respect their decisions. You can always raise concerns respectfully, but repeated disregard for guild rules or leadership decisions may result in disciplinary action."],
+  ["11. One Guild, One Community", "At the end of the day, we're here to enjoy the game together.\n\nYou don't need to be the strongest player. You don't need to be the most active. You don't need to win every fight.\n\nJust be respectful, have fun, and don't make the game worse for the people around you."],
+] as const;
+

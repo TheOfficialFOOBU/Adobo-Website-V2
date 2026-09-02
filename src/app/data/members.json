@@ -1,0 +1,235 @@
+[
+  {
+    "name": "独Sanji",
+    "class": "DPS",
+    "position": "Officer",
+    "group": "Core",
+    "weapon": "Nameless Sword / Nameless Spear",
+    "image": "/images/members/sanji.jpg",
+    "quote": "LF partner any gender basta babae."
+  },
+  {
+    "name": "swaggo",
+    "class": "DPS/Tank",
+    "position": "Officer",
+    "group": "Core",
+    "weapon": "Phalanxbane Blade / Heng Blade - Nameless Sword / Nameless Spear",
+    "image": "/images/members/swaggo.png",
+    "quote": "I'm not lazy, I'm just highly motivated to do nothing"
+  },
+  {
+    "name": "Ambón",
+    "class": "Tank",
+    "position": "Architect",
+    "group": "Core",
+    "title": "Architect",
+    "weapon": "Thundercry Mo Blade / Stormbreaker Spear - Heavenwill Gauntlets / Skygrasp Rope Dart",
+    "image": "/images/members/ambon.jpg",
+    "quote": "don't tell them I like sinigang better"
+  },
+  {
+    "name": "AstrOphiliac",
+    "class": "DPS/Healer",
+    "position": "Officer",
+    "group": "Core",
+    "weapon": "Vernal Umbrella / Inkwell Fan - Vernal Umbrella / Panacea Fan",
+    "image": "/images/members/astrophiliac.png",
+    "quote": "The Adobo guilds' best Amazing Wanderer at your call. ✨."
+  },
+  {
+    "name": "LANHAO",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Infernal Twinblades / Snowparting Blade",
+    "image": "/images/members/lanhao.jpg",
+    "quote": "She has no idea that the moment she entered my life, every wall I built crumbled, turning her into my favorite thought and the only future I want"
+  },
+  {
+    "name": "Aeleigh",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Infernal Twinblades / Martial Rope Dart",
+    "image": "/images/members/aeleigh.png",
+    "quote": "Bumili ako ng bituka ng butiki sa botika na nakakapagpabagabag istg fr fr"
+  },
+  {
+    "name": "Paupauu",
+    "class": "Healer",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Soulshade Umbrella / Panacea Fan",
+    "image": "/images/members/Paupau.png",
+    "quote": "Hello hehe"
+  },
+  {
+    "name": "Hrafna",
+    "class": "DPS",
+    "position": "Vice Master",
+    "group": "Founder",
+    "weapon": "Strategic sword / Heavenquaker Spear",
+    "image": "/images/members/hrafna.jpeg",
+    "founder": true,
+    "quote": "Sometimes we just have to lets go.",
+    "discordId": "628711632637394959"
+  },
+  {
+    "name": "Leiselle",
+    "class": "Healer",
+    "position": "Vice Master",
+    "group": "Core",
+    "weapon": "Soulshade Umbrella / Panacea Fan",
+    "image": "/images/members/leiselle.png",
+    "quote": "End Me."
+  },
+  {
+    "name": "Heuphemia",
+    "class": "Healer",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Soulshade Umbrella / Panacea Fan",
+    "image": "/images/members/huephemia.jpg",
+    "quote": "\"...\" [Time remaining: 24h0min]"
+  },
+  {
+    "name": "FOOBU",
+    "class": "DPS",
+    "position": "Guild Master",
+    "group": "Founder",
+    "weapon": "Martial Rope Dart / Infernal Twinblades & Gauntlets / Ropedart",
+    "image": "/images/members/foobu.png",
+    "founder": true,
+    "quote": "Wanted to be Spider-Man so badly, but life only ever made me Peter Parker.",
+    "discordId": "897027480534286386"
+  },
+  {
+    "name": "Maxisle",
+    "class": "DPS",
+    "position": "Vice Master",
+    "group": "Founder",
+    "weapon": "Vernal umbrella / Inkwell fan",
+    "image": "/images/members/maxisle.png",
+    "founder": true,
+    "quote": "\"Huwag kang mahiya ka.\" - GL Foobu",
+    "discordId": "948439017446318140"
+  },
+  {
+    "name": "Schalsweiser",
+    "class": "Tank",
+    "position": "Guild Master",
+    "group": "Core",
+    "weapon": "Mo Blade / Stormbreaker Spear",
+    "image": "/images/members/schalsweiser.png",
+    "quote": "Kung ang hotdog jumbo, kaya mo ba to?",
+    "discordId": "232643045508513792"
+  },
+  {
+    "name": "HyßrıðTheøry",
+    "class": "DPS / Star section pupil - best in shenanigans",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Fists and Whips 😏",
+    "image": "/images/members/hybridtheory.jpg",
+    "quote": "I'm just a horsey with massive balls. I mean bells. (awkwardly dangles my carrot)"
+  },
+  {
+    "name": "NikPicken",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Vernal Umbrella/Inkwell Gauntlets/Ropedart",
+    "image": "/images/members/nikpicken.png",
+    "quote": "Remember this eternal truth: Girls with pink hair are never to be underestimated."
+  },
+  {
+    "name": "Aiyaria",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Martial Rope Dart / Infernal Twinblades & Gauntlets & Ropedart",
+    "image": "/images/members/aiyaria.png",
+    "quote": " Du bist gut genug. 👍"
+  },
+  {
+    "name": "zylthia",
+    "class": "Healer",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Soulshade Umbrella / Panacea Fan",
+    "image": "/images/members/zylthia.jpg",
+    "quote": "Annyeonghaseyo, junun rufu mikaela imnida. (plss tell me y'all get the reference haha) Kam sam hamnida!"
+  },
+  {
+    "name": "Calialy",
+    "class": "DPS/Emotional Support Kuya",
+    "position": "Officer",
+    "group": "Core",
+    "weapon": "Nameless Sword / Nameless Spear",
+    "image": "/images/members/calialy.png",
+    "quote": "Live long enough to bring happiness to those around you."
+  },
+  {
+    "name": "TokiDrip",
+    "class": "Healer",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Soulshade Umbrella / Panacea Fan",
+    "image": "/images/members/tokidrip.png",
+    "quote": "When kaya mag ssend ng partnership? 😂"
+  },
+  {
+    "name": "雯清 (wen for short!)",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Vernal Umbrella / Inkwell Fan",
+    "image": "/images/members/雯清.png",
+    "quote": "I still don't know what I'm doing in this game"
+  },
+  {
+    "name": "xeinneyo",
+    "class": "DPS tryhard with puhonk moosick jk",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Mo, Heng blades",
+    "image": "/images/members/xeinneyo.jpg",
+    "quote": "a mobile donkey whos phone is thwas😭"
+  },
+  {
+    "name": "YUXIA",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Mo, Heng blades",
+    "image": "/images/members/yuxia.png",
+    "quote": "He has no idea that while he was tearing down every wall for me, I was quietly weaving a cage around his heart—and making sure he would never wish to leave."
+  },
+  {
+    "name": "Nyxnoir",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Everspring Umbrella / Unfettered Rope Dart / Snowparting Blade",
+    "image": "/images/members/Nyxnoir.png",
+    "quote": "[Inhale, Exhale] The sky, clouds, the grass, and the berries."
+  },
+  {
+    "name": "axolotelle",
+    "class": "Healer",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "healer fanbrella",
+    "image": "/images/members/axolotelle.png",
+    "quote": "Hi guys pls carry me"
+  },
+  {
+    "name": "pibble¹",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "shameless/chudbrella/fists/double d (dust)",
+    "image": "/images/members/pibble.png",
+    "quote": ""
+  }
+]
