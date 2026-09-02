@@ -18,6 +18,17 @@ export const activities: Activity[] = [
   { title: "Shared adventures", image: "/images/events/AiyariaAura-1600.webp", label: "Any afternoon", description: "Roam the world at a pace that leaves room for detours, discoveries, and a little chaos." },
   { title: "GvG, gently", image: "/images/events/SchalxFoobu-1600.webp", label: "Together", description: "Show up, learn together, and keep the mood lighter than the scoreboard." },
   { title: "The long table", image: "/images/events/GPic-1600.webp", label: "A place to return to", description: "Different schedules and different paths, with a seat waiting whenever you return." },
+  { title: "Guild Picture", image: "/images/events/Guild Picture-1600.webp", label: "Field note", description: "A moment captured at the long table, where every seat tells a story." },
+  { title: "GuildPic", image: "/images/events/GuildPic-1600.webp", label: "Field note", description: "Wanderers gathered, the kind of afternoon that becomes a memory." },
+  { title: "Astro Aura", image: "/images/events/AstroAura-1600.webp", label: "Under the same sky", description: "Night falls differently when you are not watching it alone." },
+  { title: "Myxy", image: "/images/events/Myxy-1600.webp", label: "Field note", description: "A quiet moment between adventures, the kind worth keeping." },
+  { title: "NikLei", image: "/images/events/NikLei-1600.webp", label: "Field note", description: "Paths cross in unexpected ways. This was one of them." },
+  { title: "Sanji x Hue", image: "/images/events/SanjiXHue-1600.webp", label: "Field note", description: "Side by side, the journey feels lighter." },
+  { title: "Schal x Foobu Art", image: "/images/events/SchalXFOOBUhART-1600.webp", label: "Field note", description: "Art imitates life, life imitates art. Sometimes both happen at once." },
+  { title: "GPIC2", image: "/images/events/GPIC2-1600.webp", label: "Field note", description: "Another gathering, another story added to the collection." },
+  { title: "Gpic3", image: "/images/events/Gpic3-1600.webp", label: "Field note", description: "The table grows. The stories deepen." },
+  { title: "Hybrid Aura", image: "/images/events/Hybridaura-1600.webp", label: "Field note", description: "Where paths meet, something new begins." },
+  { title: "First steps", image: "/images/events/1.JPG-1600.webp", label: "Where it began", description: "The first gathering. The first story. The rest followed." },
 ];
 
 export const videos: Video[] = [
