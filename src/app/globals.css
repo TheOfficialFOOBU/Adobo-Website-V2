@@ -144,6 +144,64 @@
   .font-mono { font-family: var(--font-mono-family), monospace; }
   .paper-grain { background-image: radial-gradient(rgba(39, 53, 44, 0.08) 0.7px, transparent 0.7px); background-size: 7px 7px; }
   .woven-line { background-image: repeating-linear-gradient(52deg, transparent 0 15px, rgba(230,166,96,.22) 15px 16px), repeating-linear-gradient(-52deg, transparent 0 17px, rgba(244,237,223,.14) 17px 18px); mask-image: linear-gradient(to bottom, transparent, black); }
+
+  .steam-wisp {
+    transform-origin: center bottom;
+    transform-box: fill-box;
+    animation: steamRise 8s ease-in-out infinite;
+    opacity: 0;
+  }
+  .steam-wisp-1 { animation-duration: 8.5s; animation-delay: 0s; }
+  .steam-wisp-1b { animation-duration: 7.8s; animation-delay: 0.8s; }
+  .steam-wisp-2 { animation-duration: 7.2s; animation-delay: 1.5s; }
+  .steam-wisp-2b { animation-duration: 8.0s; animation-delay: 2.2s; }
+  .steam-wisp-3 { animation-duration: 9.0s; animation-delay: 0.5s; }
+  .steam-wisp-3b { animation-duration: 8.3s; animation-delay: 1.8s; }
+  .steam-wisp-4 { animation-duration: 6.8s; animation-delay: 1.0s; }
+  .steam-wisp-5 { animation-duration: 7.5s; animation-delay: 2.8s; }
+  .steam-wisp-6 { animation-duration: 6.2s; animation-delay: 0.3s; }
+  .steam-wisp-7 { animation-duration: 6.5s; animation-delay: 2.0s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .steam-wisp {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  @keyframes steamRise {
+    0% {
+      transform: translateY(0) scaleY(0.25) rotate(0deg) scaleX(1);
+      opacity: 0;
+    }
+    6% {
+      opacity: 0.55;
+    }
+    18% {
+      transform: translateY(-25%) scaleY(0.7) rotate(-4deg) scaleX(1.05);
+      opacity: 0.5;
+    }
+    35% {
+      transform: translateY(-45%) scaleY(0.95) rotate(3deg) scaleX(0.95);
+      opacity: 0.42;
+    }
+    55% {
+      transform: translateY(-68%) scaleY(1.15) rotate(-5deg) scaleX(1.1);
+      opacity: 0.3;
+    }
+    72% {
+      transform: translateY(-85%) scaleY(1.25) rotate(4deg) scaleX(0.9);
+      opacity: 0.18;
+    }
+    88% {
+      transform: translateY(-100%) scaleY(1.3) rotate(-3deg) scaleX(1.15);
+      opacity: 0.06;
+    }
+    100% {
+      transform: translateY(-115%) scaleY(1.35) rotate(2deg) scaleX(1.0);
+      opacity: 0;
+    }
+  }
 }
 
 ::selection { background: #aa523b; color: #f4eddf; }

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { AdoboLogo } from "@/components/adobo-logo";
 
 const links = [["Home", "/"], ["Members", "/members"], ["Activities", "/activities"], ["Videos", "/videos"], ["Rules", "/rules"]];
 
@@ -11,18 +12,18 @@ export function SiteHeader() {
   return (
     <header className="absolute inset-x-0 top-0 z-30 mx-auto flex max-w-[1440px] items-center justify-between px-6 py-6 text-paper lg:px-10">
       <Link href="/" className="relative h-12 w-12 shrink-0" aria-label="Adobo Guild home">
-        <Image src="/images/branding/adobo-logo.png" alt="Adobo Guild" fill sizes="48px" className="object-contain" priority unoptimized />
+        <AdoboLogo size={48} priority ariaLabel="Adobo Guild home" />
       </Link>
       <nav className="hidden items-center gap-8 font-mono text-[10px] uppercase tracking-[.16em] text-paper/75 md:flex" aria-label="Primary navigation">
         {links.map(([label, href]) => <Link key={href} href={href} className="transition-colors hover:text-gold">{label}</Link>)}
       </nav>
-      <div className="hidden md:block"><Link href="mailto:hello@adobo.gg" className="border border-gold bg-gold px-5 py-3 font-mono text-[10px] uppercase tracking-[.14em] text-forest transition-colors hover:bg-transparent hover:text-gold">Join us</Link></div>
+      <div className="hidden md:block"><Link href="https://discord.gg/NdZXkmYJnS" className="border border-gold bg-gold px-5 py-3 font-mono text-[10px] uppercase tracking-[.14em] text-forest transition-colors hover:bg-transparent hover:text-gold">Join us</Link></div>
       <button type="button" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)} className="font-mono text-[10px] uppercase tracking-[.16em] md:hidden">
         {open ? "Close" : "Menu"}
       </button>
       {open && <nav id="mobile-navigation" className="absolute right-6 top-[76px] flex min-w-52 flex-col gap-5 border border-border bg-paper p-6 text-forest shadow-xl md:hidden" aria-label="Mobile navigation">
         {links.map(([label, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="font-mono text-[10px] uppercase tracking-[.16em] hover:text-terracotta">{label}</Link>)}
-        <Link href="mailto:hello@adobo.gg" onClick={() => setOpen(false)} className="border-t border-border pt-5 font-mono text-[10px] uppercase tracking-[.16em] text-terracotta">Join us</Link>
+        <Link href="https://discord.gg/NdZXkmYJnS" onClick={() => setOpen(false)} className="border-t border-border pt-5 font-mono text-[10px] uppercase tracking-[.16em] text-terracotta">Join us</Link>
       </nav>}
     </header>
   );
