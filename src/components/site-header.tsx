@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { AdoboLogo } from "@/components/adobo-logo";
 
-const links = [["Home", "/"], ["Members", "/members"], ["Activities", "/activities"], ["Videos", "/videos"], ["Rules", "/rules"]];
+const links = [["Home", "/"], ["Members", "/members"], ["Schedule", "/schedule"], ["Activities", "/activities"], ["Videos", "/videos"], ["Rules", "/rules"]];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);

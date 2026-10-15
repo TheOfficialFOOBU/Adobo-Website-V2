@@ -66,7 +66,7 @@
   {
     "name": "Hrafna",
     "class": "DPS",
-    "position": "Vice Master",
+    "position": "Founder",
     "group": "Founder",
     "weapon": "Strategic sword / Heavenquaker Spear",
     "image": "/images/members/hrafna.jpeg",
@@ -95,7 +95,7 @@
   {
     "name": "FOOBU",
     "class": "DPS",
-    "position": "Guild Master",
+    "position": "Founder",
     "group": "Founder",
     "weapon": "Martial Rope Dart / Infernal Twinblades & Gauntlets / Ropedart",
     "image": "/images/members/foobu.png",
@@ -106,7 +106,7 @@
   {
     "name": "Maxisle",
     "class": "DPS",
-    "position": "Vice Master",
+    "position": "Founder",
     "group": "Founder",
     "weapon": "Vernal umbrella / Inkwell fan",
     "image": "/images/members/maxisle.png",
@@ -127,8 +127,8 @@
   {
     "name": "HyßrıðTheøry",
     "class": "DPS / Star section pupil - best in shenanigans",
-    "position": "Member",
-    "group": "Member",
+    "position": "Officer",
+    "group": "Officer",
     "weapon": "Fists and Whips 😏",
     "image": "/images/members/hybridtheory.jpg",
     "quote": "I'm just a horsey with massive balls. I mean bells. (awkwardly dangles my carrot)"
@@ -231,5 +231,32 @@
     "weapon": "shameless/chudbrella/fists/double d (dust)",
     "image": "/images/members/pibble.png",
     "quote": ""
+  },
+  {
+    "name": "Celineie",
+    "class": "Pure Healer",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Soulshade Umbrella / Panacea Fan",
+    "image": "/images/members/Celineie.png",
+    "quote": "First time being tortured? Don't worry, I'll do everything."
+  },
+  {
+    "name": "Vérmõuth",
+    "class": "Dps/healer",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Nameless Sword / Nameless Spear || Soulshade Umbrella / Panacea Fan",
+    "image": "/images/members/Vérmõuth.jpg",
+    "quote": "Reify me, ephemeral city, make me your salutary end"
+  },
+  {
+    "name": "Aixhi",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "current new weapons (always changing, I'm indecisive)",
+    "image": "/images/members/Aixhi.jpg",
+    "quote": "I like bread, to eat or hit someone with."
   }
 ]
