@@ -69,7 +69,7 @@ export function AdoboLogo({ size, className = "", priority = false, ariaLabel = 
             </filter>
           </defs>
           
-          <g filter="url(#steamSoft)" fill="none" stroke="#f4eddf" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.45 }}>
+          <g filter="url(#steamSoft)" fill="none" stroke="#f4f0e7" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.45 }}>
             {/* Wisp 1 - left drifting */}
             <path
               className="steam-wisp steam-wisp-1"

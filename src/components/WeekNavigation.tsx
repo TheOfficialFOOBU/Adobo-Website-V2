@@ -12,7 +12,7 @@ interface WeekNavigationProps {
 }
 
 const buttonClass =
-  "group flex items-center gap-2 rounded-sm border border-paper/25 bg-transparent px-4 py-2.5 font-mono text-[10px] uppercase tracking-[.14em] text-paper transition-colors duration-200 hover:border-paper/60 hover:bg-paper/10";
+  "pressable group flex items-center gap-2 rounded-sm border border-paper/25 bg-transparent px-4 py-2.5 font-mono text-[10px] uppercase tracking-[.14em] text-paper transition-colors duration-200 hover:border-paper/60 hover:bg-paper/10";
 
 export function WeekNavigation({
   onPrevious,

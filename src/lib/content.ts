@@ -11,10 +11,10 @@ export const featuredMembers = featuredNames.map(name => {
 });
 
 export type Activity = { title: string; image: string; label: string; description: string };
-export type Video = { title: string; thumbnail: string; source: string; label: string };
+export type Video = { title: string; thumbnail?: string; source: string; label: string };
 
 export const activities: Activity[] = [
-  { title: "Guild gatherings", image: "/images/events/Guild Picture Aura-1600.webp", label: "In good company", description: "The people, screenshots, and stories that make an ordinary session worth remembering." },
+  { title: "Guild gatherings", image: "/images/events/Pogi-1600.webp", label: "In good company", description: "The people, screenshots, and stories that make an ordinary session worth remembering." },
   { title: "Shared adventures", image: "/images/events/AiyariaAura-1600.webp", label: "Any afternoon", description: "Roam the world at a pace that leaves room for detours, discoveries, and a little chaos." },
   { title: "GvG, gently", image: "/images/events/SchalxFoobu-1600.webp", label: "Together", description: "Show up, learn together, and keep the mood lighter than the scoreboard." },
   { title: "The long table", image: "/images/events/GPic-1600.webp", label: "A place to return to", description: "Different schedules and different paths, with a seat waiting whenever you return." },
@@ -29,6 +29,9 @@ export const activities: Activity[] = [
   { title: "Gpic3", image: "/images/events/Gpic3-1600.webp", label: "Field note", description: "The table grows. The stories deepen." },
   { title: "Hybrid Aura", image: "/images/events/Hybridaura-1600.webp", label: "Field note", description: "Where paths meet, something new begins." },
   { title: "First steps", image: "/images/events/1.JPG-1600.webp", label: "Where it began", description: "The first gathering. The first story. The rest followed." },
+  { title: "Rozo LB", image: "/images/events/Rozo LB.png", label: "Field note", description: "Another page from the road, kept the way it happened." },
+  { title: "Rozo LB2", image: "/images/events/rozo-lb2-v2.png", label: "Field note", description: "Same road, another moment worth keeping." },
+  { title: "Cali Mid", image: "/images/events/Cali Mid.png", label: "Field note", description: "Caught mid-journey, right where the story lives." },
 ];
 
 export const videos: Video[] = [
@@ -37,6 +40,9 @@ export const videos: Video[] = [
   { title: "Aura Farm", thumbnail: "/videos/videos/Calialy Aura Farm.jpg", source: "/videos/videos/Calialy Aura Farm.mp4", label: "Field note 03" },
   { title: "Pictorial Gone Wrong", thumbnail: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.jpg", source: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.mp4", label: "Field note 04" },
   { title: "Denying Fanbrella", thumbnail: "/videos/videos/Schalsweiser Denying Fanbrella.jpg", source: "/videos/videos/Schalsweiser Denying Fanbrella.mp4", label: "Field note 05" },
+  { title: "Ambón Succy Succy", source: "/videos/videos/Ambón Succy Succy.mp4", label: "Field note 06" },
+  { title: "GvG Aura Walk", source: "/videos/videos/GvG Aura Walk.mp4", label: "Field note 07" },
+  { title: "Lei's glorious moment", source: "/videos/videos/Lei's glorious moment.mp4", label: "Field note 08" },
 ];
 
 export const faqs = [

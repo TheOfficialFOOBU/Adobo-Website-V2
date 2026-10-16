@@ -13,6 +13,7 @@ const geistSans = Geist({
 const fraunces = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   weight: ["400", "500", "600"],
 });
 

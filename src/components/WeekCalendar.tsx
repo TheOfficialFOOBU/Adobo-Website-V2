@@ -80,7 +80,6 @@ export function WeekCalendar() {
         <div className="mx-auto max-w-[1440px] px-6 pb-14 pt-28 lg:px-10 lg:pb-16 lg:pt-36">
           <div className="schedule-enter max-w-3xl">
             <p className="font-mono text-[10px] uppercase tracking-[.18em] text-paper">
-              <span className="mr-3 inline-block h-px w-8 bg-terracotta align-middle" aria-hidden="true" />
               Guild Events
             </p>
             <h1 className="mt-5 font-display text-[clamp(2.75rem,5vw,4.5rem)] leading-[.9] tracking-[-.04em] text-paper">
@@ -90,16 +89,11 @@ export function WeekCalendar() {
               A quiet ledger of gatherings, trials, and wars — kept in Manila time, shown in yours.
             </p>
             <p className="mt-4 font-mono text-[10px] uppercase tracking-[.14em] text-gold">
-              Times in {targetTimezone} · Official schedule UTC+8
+              Time Zone: {targetTimezone} · Official schedule UTC+8
             </p>
           </div>
 
-          <div className="schedule-enter mt-10 flex items-center gap-4" style={{ animationDelay: "60ms" }} aria-hidden="true">
-            <span className="h-px w-12 bg-terracotta" />
-            <span className="h-px flex-1 bg-paper/15" />
-          </div>
-
-          <div className="schedule-enter mt-8" style={{ animationDelay: "100ms" }}>
+          <div className="schedule-enter mt-10" style={{ animationDelay: "100ms" }}>
             <WeekNavigation
               onPrevious={handlePreviousWeek}
               onNext={handleNextWeek}

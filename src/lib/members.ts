@@ -1,6 +1,6 @@
 import sourceMembers from "@/app/data/members.json";
 
-export type Group = "Founder" | "Core" | "Member";
+export type Group = "Founder" | "Core" | "Officer" | "Member";
 export type Position = "Guild Master" | "Vice Master" | "Officer" | "Architect" | "Member";
 export type Member = Omit<(typeof sourceMembers)[number], "group" | "position"> & { group: Group; position: Position };
 
