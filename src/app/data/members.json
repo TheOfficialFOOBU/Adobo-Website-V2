@@ -258,5 +258,23 @@
     "weapon": "current new weapons (always changing, I'm indecisive)",
     "image": "/images/members/Aixhi.jpg",
     "quote": "I like bread, to eat or hit someone with."
+  },
+  {
+    "name": "Rîn",
+    "class": "Tank",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Stormbreaker Spear / Thundercry Blade",
+    "image": "/images/members/Rîn.png",
+    "quote": "..."
+  },
+  {
+    "name": "RyuuMickael",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Shameless Sword/Spear",
+    "image": "/images/members/RyuuMickael.jpg",
+    "quote": "HBD Snowfluff"
   }
 ]
