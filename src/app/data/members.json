@@ -276,5 +276,41 @@
     "weapon": "Shameless Sword/Spear",
     "image": "/images/members/RyuuMickael.jpg",
     "quote": "HBD Snowfluff"
+  },
+  {
+    "name": "NinjaTIM",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Mo / Heng Blade",
+    "image": "/images/members/NinjaTIM.jpg",
+    "quote": "A.K.A Peter North"
+  },
+  {
+    "name": "ILindaWalkerI",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Heng Blade / Mo Blade",
+    "image": "/images/members/ILindaWalkerI.png",
+    "quote": "180 IQ"
+  },
+  {
+    "name": "Diassha",
+    "class": "DPS / Healer",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Vernal Umbrella / Inkwell Fan & Soulshade Umbrella / Panacea Fan",
+    "image": "/images/members/Diassha.png",
+    "quote": "Body in the abyss, heart in paradise."
+  },
+  {
+    "name": "Yinhuanyong",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Everspring Umbrella / Unfettered Dart",
+    "image": "/images/members/Yinhuanyong.jpg",
+    "quote": "Everlasting as the moon."
   }
 ]
