@@ -15,7 +15,7 @@
     "group": "Core",
     "weapon": "Phalanxbane Blade / Heng Blade - Nameless Sword / Nameless Spear",
     "image": "/images/members/swaggo.png",
-    "quote": "I'm not lazy, I'm just highly motivated to do nothing"
+    "quote": "I can't see when I close my eyes."
   },
   {
     "name": "Ambón",
@@ -126,12 +126,12 @@
   },
   {
     "name": "HyßrıðTheøry",
-    "class": "DPS / Star section pupil - best in shenanigans",
+    "class": "DPS (at least trying to be)",
     "position": "Officer",
     "group": "Core",
-    "weapon": "Fists and Whips 😏",
+    "weapon": "Shameless Sword/Spear",
     "image": "/images/members/hybridtheory.jpg",
-    "quote": "I'm just a horsey with massive balls. I mean bells. (awkwardly dangles my carrot)"
+    "quote": "My name and boss fight mechanics just doesn't belong in the same sentence."
   },
   {
     "name": "NikPicken",
@@ -147,9 +147,9 @@
     "class": "DPS",
     "position": "Member",
     "group": "Member",
-    "weapon": "Martial Rope Dart / Infernal Twinblades & Gauntlets & Ropedart",
+    "weapon": "Drunken Fist & Twin Blades",
     "image": "/images/members/aiyaria.png",
-    "quote": " Du bist gut genug. 👍"
+    "quote": "You can't cast a shadow without a little light."
   },
   {
     "name": "zylthia",
@@ -312,5 +312,14 @@
     "weapon": "Everspring Umbrella / Unfettered Dart",
     "image": "/images/members/Yinhuanyong.jpg",
     "quote": "Everlasting as the moon."
+  },
+  {
+    "name": "馬Rongjie",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Hengdao",
+    "image": "/images/members/馬Rongjie.jpg",
+    "quote": "ST and HR kiznapper"
   }
 ]

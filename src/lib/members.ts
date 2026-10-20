@@ -1,10 +1,31 @@
 import sourceMembers from "@/app/data/members.json";
+import sourceHonoraryMembers from "@/app/data/honorary-members.json";
 
-export type Group = "Founder" | "Core" | "Officer" | "Member";
-export type Position = "Guild Master" | "Vice Master" | "Officer" | "Architect" | "Member";
-export type Member = Omit<(typeof sourceMembers)[number], "group" | "position"> & { group: Group; position: Position };
+export type Group = "Founder" | "Core" | "Officer" | "Member" | "Honorary";
+export type Position = "Guild Master" | "Vice Master" | "Officer" | "Architect" | "Member" | "Honorary Member";
+
+export type Member = {
+  name: string;
+  class: string;
+  weapon: string;
+  image: string;
+  quote: string;
+  title?: string;
+  founder?: boolean;
+  discordId?: string;
+  group: Group;
+  position: Position;
+};
 
 export const members = sourceMembers as Member[];
+
+export const honoraryMembers: Member[] = sourceHonoraryMembers.map(member => ({
+  ...member,
+  group: "Honorary" as const,
+  position: "Honorary Member" as const,
+}));
+
+export const allMembers: Member[] = [...members, ...honoraryMembers];
 
 export function memberSlug(member: Member) {
   return slugify(member.name);
@@ -20,13 +41,14 @@ export function slugify(value: string) {
 }
 
 export function getMemberBySlug(slug: string) {
-  return members.find(member => memberSlug(member) === slug);
+  return allMembers.find(member => memberSlug(member) === slug);
 }
 
 export function getMemberNeighbors(member: Member) {
-  const index = members.findIndex(candidate => candidate.name === member.name);
+  const collection = member.group === "Honorary" ? honoraryMembers : members;
+  const index = collection.findIndex(candidate => candidate.name === member.name);
   return {
-    previous: index > 0 ? members[index - 1] : undefined,
-    next: index < members.length - 1 ? members[index + 1] : undefined,
+    previous: index > 0 ? collection[index - 1] : undefined,
+    next: index < collection.length - 1 ? collection[index + 1] : undefined,
   };
 }

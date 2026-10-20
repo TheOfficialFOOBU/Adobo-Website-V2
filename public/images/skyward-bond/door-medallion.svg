@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <defs>
+    <radialGradient id="plate" cx=".42" cy=".35" r=".75">
+      <stop offset="0" stop-color="#7a4524"/>
+      <stop offset=".55" stop-color="#4b2414"/>
+      <stop offset="1" stop-color="#241009"/>
+    </radialGradient>
+    <linearGradient id="gold" x1=".15" y1="0" x2=".85" y2="1">
+      <stop offset="0" stop-color="#e4bd77"/>
+      <stop offset=".28" stop-color="#a97035"/>
+      <stop offset=".56" stop-color="#d5a35b"/>
+      <stop offset=".82" stop-color="#865026"/>
+      <stop offset="1" stop-color="#c5904b"/>
+    </linearGradient>
+    <linearGradient id="petalFill" x1=".2" y1="0" x2=".8" y2="1">
+      <stop offset="0" stop-color="#8d5a32"/>
+      <stop offset=".46" stop-color="#5a2d19"/>
+      <stop offset="1" stop-color="#2d120b"/>
+    </linearGradient>
+    <g id="lotusPetal">
+      <path d="M320 338C282 296 270 232 298 164C316 208 334 258 320 338Z"/>
+    </g>
+    <g id="cloudCurl">
+      <path d="M320 92c-27 0-49 19-53 44-17-13-42-8-52 10-7 13-4 30 8 39-18 7-27 28-19 46 8 18 29 25 47 17 5 15 21 25 37 23"/>
+      <path d="M286 132c-10-13-29-12-38 1-7 10-4 23 6 30"/>
+    </g>
+  </defs>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="320" cy="320" r="286" fill="url(#plate)" stroke="#180b07" stroke-width="18" opacity=".96"/>
+    <circle cx="320" cy="320" r="286" stroke="url(#gold)" stroke-width="11"/>
+    <circle cx="320" cy="320" r="262" stroke="#140805" stroke-width="8" opacity=".9"/>
+    <circle cx="320" cy="320" r="258" stroke="url(#gold)" stroke-width="3" opacity=".9"/>
+
+    <g stroke="#180b07" stroke-width="9" opacity=".85" transform="translate(3 4)">
+      <use href="#lotusPetal"/><use href="#lotusPetal" transform="rotate(45 320 320)"/>
+      <use href="#lotusPetal" transform="rotate(90 320 320)"/><use href="#lotusPetal" transform="rotate(135 320 320)"/>
+      <use href="#lotusPetal" transform="rotate(180 320 320)"/><use href="#lotusPetal" transform="rotate(225 320 320)"/>
+      <use href="#lotusPetal" transform="rotate(270 320 320)"/><use href="#lotusPetal" transform="rotate(315 320 320)"/>
+    </g>
+    <g fill="url(#petalFill)" stroke="url(#gold)" stroke-width="4.5">
+      <use href="#lotusPetal"/><use href="#lotusPetal" transform="rotate(45 320 320)"/>
+      <use href="#lotusPetal" transform="rotate(90 320 320)"/><use href="#lotusPetal" transform="rotate(135 320 320)"/>
+      <use href="#lotusPetal" transform="rotate(180 320 320)"/><use href="#lotusPetal" transform="rotate(225 320 320)"/>
+      <use href="#lotusPetal" transform="rotate(270 320 320)"/><use href="#lotusPetal" transform="rotate(315 320 320)"/>
+    </g>
+    <g stroke="#e9c27a" stroke-width="1.6" opacity=".5">
+      <use href="#lotusPetal" transform="translate(-3 -3)"/>
+      <use href="#lotusPetal" transform="rotate(90 320 320) translate(-3 -3)"/>
+      <use href="#lotusPetal" transform="rotate(180 320 320) translate(-3 -3)"/>
+      <use href="#lotusPetal" transform="rotate(270 320 320) translate(-3 -3)"/>
+    </g>
+
+    <circle cx="320" cy="320" r="103" fill="#2a1109" stroke="#150805" stroke-width="10"/>
+    <circle cx="320" cy="320" r="103" stroke="url(#gold)" stroke-width="6"/>
+    <circle cx="320" cy="320" r="83" stroke="#0f0604" stroke-width="7"/>
+    <circle cx="320" cy="320" r="83" stroke="url(#gold)" stroke-width="2.8"/>
+    <path d="M320 270l50 50-50 50-50-50z" fill="#3c1a0e" stroke="url(#gold)" stroke-width="4"/>
+    <path d="M320 292l28 28-28 28-28-28z" fill="#180a06" stroke="#c99a52" stroke-width="2.3"/>
+
+    <g stroke="#190b07" stroke-width="7" opacity=".85" transform="translate(3 4)">
+      <use href="#cloudCurl"/><use href="#cloudCurl" transform="rotate(90 320 320)"/>
+      <use href="#cloudCurl" transform="rotate(180 320 320)"/><use href="#cloudCurl" transform="rotate(270 320 320)"/>
+    </g>
+    <g stroke="url(#gold)" stroke-width="3.2" opacity=".9">
+      <use href="#cloudCurl"/><use href="#cloudCurl" transform="rotate(90 320 320)"/>
+      <use href="#cloudCurl" transform="rotate(180 320 320)"/><use href="#cloudCurl" transform="rotate(270 320 320)"/>
+    </g>
+
+    <g fill="#c99a52" stroke="none">
+      <circle cx="320" cy="36" r="4.5"/><circle cx="320" cy="604" r="4.5"/>
+      <circle cx="36" cy="320" r="4.5"/><circle cx="604" cy="320" r="4.5"/>
+      <circle cx="119" cy="119" r="3.2"/><circle cx="521" cy="119" r="3.2"/>
+      <circle cx="119" cy="521" r="3.2"/><circle cx="521" cy="521" r="3.2"/>
+    </g>
+  </g>
+</svg>

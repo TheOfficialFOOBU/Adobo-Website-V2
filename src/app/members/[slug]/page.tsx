@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getMemberBySlug, getMemberNeighbors, memberSlug, members } from "@/lib/members";
+import { allMembers, getMemberBySlug, getMemberNeighbors, memberSlug } from "@/lib/members";
 import { Arrow, SectionLabel, SiteFooter, SiteHeader } from "@/components/site-header";
 
 type ProfileProps = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return members.map(member => ({ slug: memberSlug(member) }));
+  return allMembers.map(member => ({ slug: memberSlug(member) }));
 }
 
 export async function generateMetadata({ params }: ProfileProps): Promise<Metadata> {
