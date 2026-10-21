@@ -6,7 +6,7 @@ import type { EventOccurrence } from "@/lib/timezone";
 import { formatDate, formatWeekdayName } from "@/lib/timezone";
 
 interface DayColumnProps {
-  date: Date;
+  date: string;
   occurrences: EventOccurrence[];
   isToday: boolean;
   index?: number;
@@ -41,7 +41,7 @@ export function DayColumn({
           )}
         </div>
         <h3 className="mt-1.5 font-display text-[26px] leading-none tracking-[-.02em] text-forest">
-          <time dateTime={date.toISOString().split("T")[0]}>
+          <time dateTime={date}>
             {dateStr}
           </time>
         </h3>

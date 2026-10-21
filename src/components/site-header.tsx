@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AdoboLogo } from "@/components/adobo-logo";
 
 const links = [["Home", "/"], ["Members", "/members"], ["Schedule", "/schedule"], ["Skyward", "/skyward-bond"], ["Activities", "/activities"], ["Videos", "/videos"], ["Rules", "/rules"]];
@@ -16,6 +16,15 @@ function isActiveLink(href: string, pathname: string): boolean {
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
   return (
     <header className="absolute inset-x-0 top-0 z-30 mx-auto flex max-w-[1440px] items-center justify-between px-6 py-6 text-paper lg:px-10">
       <Link href="/" className="relative flex h-12 w-12 shrink-0 items-center justify-center" aria-label="Adobo Guild home">
@@ -44,5 +53,5 @@ export function Arrow() { return <span aria-hidden="true" className="inline-bloc
 
 export function SiteFooter() {
   const pathname = usePathname();
-  return <footer className="bg-forest px-6 py-10 text-paper lg:px-10"><div className="mx-auto grid max-w-[1440px] gap-10 border-b border-paper/20 pb-10 md:grid-cols-[1fr_auto_auto] md:items-end"><div><Image src="/images/branding/adobo-logo.png" alt="Adobo Guild" width={52} height={52} unoptimized className="mb-5 object-contain" /><p className="font-display text-2xl">Adobo Guild</p><p className="mt-2 font-mono text-[10px] uppercase tracking-[.14em] text-paper/60">Where Winds Meet · Different Wanderers. One table.</p></div><nav className="flex flex-wrap gap-x-6 gap-y-3 font-mono text-[10px] uppercase tracking-[.14em] text-paper/70" aria-label="Footer navigation">{links.map(([label, href]) => <Link key={href} href={href} aria-current={isActiveLink(href, pathname) ? "page" : undefined} className="nav-link hover:text-gold">{label}</Link>)}</nav><Link href="https://discord.gg/NdZXkmYJnS" className="font-mono text-[10px] uppercase tracking-[.14em] text-gold transition-colors hover:text-paper">Come wander with us →</Link></div><div className="mx-auto flex max-w-[1440px] justify-between pt-5 font-mono text-[9px] uppercase tracking-[.14em] text-paper/45"><span>Peace-first. Fun-obsessed.</span><span>© {new Date().getFullYear()} Adobo Guild</span></div></footer>;
+  return <footer className="bg-forest px-6 py-10 text-paper lg:px-10"><div className="mx-auto grid max-w-[1440px] gap-10 border-b border-paper/20 pb-10 md:grid-cols-[1fr_auto_auto] md:items-end"><div><Image src="/images/branding/adobo-logo.png" alt="Adobo Guild" width={52} height={52} quality={90} className="mb-5 object-contain" /><p className="font-display text-2xl">Adobo Guild</p><p className="mt-2 font-mono text-[10px] uppercase tracking-[.14em] text-paper/60">Where Winds Meet · Different Wanderers. One table.</p></div><nav className="flex flex-wrap gap-x-6 gap-y-3 font-mono text-[10px] uppercase tracking-[.14em] text-paper/70" aria-label="Footer navigation">{links.map(([label, href]) => <Link key={href} href={href} aria-current={isActiveLink(href, pathname) ? "page" : undefined} className="nav-link hover:text-gold">{label}</Link>)}</nav><Link href="https://discord.gg/NdZXkmYJnS" className="font-mono text-[10px] uppercase tracking-[.14em] text-gold transition-colors hover:text-paper">Come wander with us →</Link></div><div className="mx-auto flex max-w-[1440px] justify-between pt-5 font-mono text-[9px] uppercase tracking-[.14em] text-paper/45"><span>Peace-first. Fun-obsessed.</span><span>© {new Date().getFullYear()} Adobo Guild</span></div></footer>;
 }

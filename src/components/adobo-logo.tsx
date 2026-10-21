@@ -41,9 +41,9 @@ export function AdoboLogo({ size, className = "", priority = false, ariaLabel = 
           alt={ariaLabel}
           fill
           sizes={`${size}px`}
+          quality={90}
           className="object-contain"
           priority={priority}
-          unoptimized
         />
       </div>
     );
@@ -147,9 +147,9 @@ export function AdoboLogo({ size, className = "", priority = false, ariaLabel = 
         alt={ariaLabel}
         fill
         sizes={`${size}px`}
+        quality={90}
         className="object-contain"
         priority={priority}
-        unoptimized
       />
     </div>
   );

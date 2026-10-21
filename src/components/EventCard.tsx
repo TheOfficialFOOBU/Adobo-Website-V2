@@ -17,8 +17,6 @@ export function EventCard({
 }: {
   occurrence: EventOccurrence;
 }) {
-  const start = new Date(occurrence.startTime);
-  const end = occurrence.endTime ? new Date(occurrence.endTime) : null;
   const CategoryIcon = categoryIconComponents[occurrence.category];
 
   return (
@@ -41,7 +39,7 @@ export function EventCard({
           </h4>
           <p className="mt-1.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[.08em] text-forest">
             <Clock className="h-3 w-3 shrink-0" aria-hidden="true" />
-            <time dateTime={start.toISOString()}>{formatTimeRange(start, end)}</time>
+            <time dateTime={occurrence.startTime}>{formatTimeRange(occurrence.startTime, occurrence.endTime)}</time>
           </p>
           {occurrence.notes && (
             <p className="mt-1.5 break-words text-[13px] leading-relaxed text-sage">{occurrence.notes}</p>
@@ -52,7 +50,7 @@ export function EventCard({
   );
 }
 
-function formatTimeRange(start: Date, end: Date | null): string {
+function formatTimeRange(start: string, end?: string): string {
   const startStr = formatTime(start);
   if (end) {
     const endStr = formatTime(end);

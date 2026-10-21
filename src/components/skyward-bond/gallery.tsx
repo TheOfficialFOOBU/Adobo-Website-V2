@@ -18,7 +18,6 @@ import {
 
 const SKYWARD_BOND_DIFFICULTY_TABS = ["abyss", "hard", "normal"] as const;
 const SKYWARD_BOND_DEFAULT_DIFFICULTY: SkywardBondDifficulty = "abyss";
-
 function recordCountLabel(count: number): string {
   return `${count} ${count === 1 ? "record" : "records"}`;
 }
@@ -70,7 +69,7 @@ function AchievementCard({
         <dl className="mt-5 grid gap-4 border-t border-[#C99A52]/15 pt-4 sm:grid-cols-2 lg:grid-cols-1">
           <div>
             <dt className="font-mono text-[9px] uppercase tracking-[.16em] text-[#A8A6A0]">
-              Highest Floor &amp; Difficulty
+              Highest clear · all modes
             </dt>
             <dd className="mt-1 font-display text-xl leading-tight text-[#E9DCC6]">
               {clearLabel(achievement.overallHighest)}
@@ -78,7 +77,7 @@ function AchievementCard({
           </div>
           <div>
             <dt className="font-mono text-[9px] uppercase tracking-[.16em] text-[#A8A6A0]">
-              Last Floor &amp; Difficulty
+              Latest clear
             </dt>
             <dd className="mt-1 font-display text-xl leading-tight text-[#E9DCC6]">
               {clearLabel(achievement.latestClear)}
@@ -134,7 +133,9 @@ function EmptyDifficulty({ difficulty }: { difficulty: SkywardBondDifficulty }) 
 
 function RecordedLedger({ records }: { records: ResolvedSkywardBondAchievement[] }) {
   const [selectedDifficulty, setSelectedDifficulty] = useState<SkywardBondDifficulty>(
-    SKYWARD_BOND_DEFAULT_DIFFICULTY,
+    SKYWARD_BOND_DIFFICULTY_TABS.find(difficulty =>
+      records.some(record => record.difficulty === difficulty),
+    ) ?? SKYWARD_BOND_DEFAULT_DIFFICULTY,
   );
 
   const selectDifficulty = (difficulty: SkywardBondDifficulty) => {

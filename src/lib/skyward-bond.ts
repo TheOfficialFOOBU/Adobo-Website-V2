@@ -337,7 +337,6 @@ export function latestSkywardBondClear(
   );
 
   if (validClears.length === 0) return undefined;
-  if (validClears.length === 1) return validClears[0];
 
   let latest: SkywardBondClear | undefined;
   let latestTimestamp = Number.NEGATIVE_INFINITY;
@@ -351,7 +350,7 @@ export function latestSkywardBondClear(
     }
   }
 
-  return latest;
+  return latest ?? validClears[validClears.length - 1];
 }
 
 const membersByName = new Map(members.map(member => [member.name, member]));

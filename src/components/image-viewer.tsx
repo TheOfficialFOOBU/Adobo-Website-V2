@@ -16,16 +16,42 @@ export function ImageViewer({ src, alt, sizes = "92vw" }: ImageViewerProps) {
 
   useEffect(() => {
     if (!open) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
     const previousOverflow = document.body.style.overflow;
+    const dialogNode = closeButtonRef.current?.closest('[role="dialog"]');
+
+    const getFocusable = () =>
+      dialogNode
+        ? Array.from(dialogNode.querySelectorAll<HTMLElement>("button, [href], [tabindex]:not([tabindex='-1'])"))
+        : [];
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = getFocusable();
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const current = document.activeElement;
+      if (event.shiftKey && (current === first || !dialogNode?.contains(current))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (current === last || !dialogNode?.contains(current))) {
+        event.preventDefault();
+        first.focus();
+      }
     };
+
     document.body.style.overflow = "hidden";
     document.addEventListener("keydown", handleKeyDown);
     closeButtonRef.current?.focus();
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused?.focus();
     };
   }, [open]);
 
@@ -55,7 +81,6 @@ export function ImageViewer({ src, alt, sizes = "92vw" }: ImageViewerProps) {
               fill
               sizes={sizes}
               quality={90}
-              unoptimized
               className="object-contain"
             />
             <button

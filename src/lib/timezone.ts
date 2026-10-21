@@ -1,38 +1,85 @@
 import { formatInTimeZone, fromZonedTime } from "date-fns-tz";
-import { getDay, startOfWeek, addWeeks, subWeeks, isSameDay } from "date-fns";
 import { GUILD_TIMEZONE, recurringEvents, type RecurringEvent } from "./schedule";
 
-export function getWeekStart(date: Date): Date {
-  return startOfWeek(date, { weekStartsOn: 1 });
-}
-
-export function getWeekDays(weekStart: Date): Date[] {
-  const days: Date[] = [];
-  for (let i = 0; i < 7; i++) {
-    const day = new Date(weekStart);
-    day.setDate(weekStart.getDate() + i);
-    days.push(day);
-  }
-  return days;
-}
-
-export function formatWeekdayName(date: Date, short = false): string {
-  const dayIndex = getDay(date);
-  const names = short
-    ? ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
-    : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  return names[dayIndex];
-}
-
-export function formatDate(date: Date): string {
-  return date.toLocaleDateString("en-US", { month: "long", day: "numeric" });
-}
-
-export function formatTime(date: Date): string {
-  return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
-}
-
 export { formatInTimeZone } from "date-fns-tz";
+
+/**
+ * A week frame is the calendar week shown by the schedule, expressed as plain
+ * `yyyy-MM-dd` strings anchored to a Monday. String space keeps every render
+ * deterministic: the server can prerender the current guild week (Manila) and
+ * the client can hydrate from the exact same values before switching to the
+ * visitor's own timezone.
+ */
+export type WeekFrame = {
+  weekStartDate: string;
+  todayDate: string;
+};
+
+const DAY_MS = 86_400_000;
+
+function noonUTC(dateISO: string): Date {
+  return new Date(`${dateISO}T12:00:00Z`);
+}
+
+function isoDay(dateUTC: Date): string {
+  return dateUTC.toISOString().slice(0, 10);
+}
+
+export function shiftISODate(dateISO: string, days: number): string {
+  return isoDay(new Date(noonUTC(dateISO).getTime() + days * DAY_MS));
+}
+
+export function dayOfWeekIndex(dateISO: string): number {
+  return noonUTC(dateISO).getUTCDay();
+}
+
+export function getTargetWeekFrame(
+  targetTimezone: string,
+  reference: Date = new Date(),
+): WeekFrame {
+  const todayDate = formatInTimeZone(reference, targetTimezone, "yyyy-MM-dd");
+  const isoWeekday = Number(formatInTimeZone(reference, targetTimezone, "i"));
+  return {
+    weekStartDate: shiftISODate(todayDate, 1 - isoWeekday),
+    todayDate,
+  };
+}
+
+export function getWeekStartDates(weekStartDate: string): string[] {
+  return Array.from({ length: 7 }, (_, index) => shiftISODate(weekStartDate, index));
+}
+
+const weekdayNames = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const weekdayShortNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+export function formatWeekdayName(dateISO: string, short = false): string {
+  return (short ? weekdayShortNames : weekdayNames)[dayOfWeekIndex(dateISO)];
+}
+
+export function formatDate(dateISO: string): string {
+  return noonUTC(dateISO).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+export function formatTime(wallTime: string): string {
+  return new Date(wallTime).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
 
 export function detectBrowserTimezone(): string {
   if (typeof window === "undefined") return GUILD_TIMEZONE;
@@ -43,52 +90,6 @@ export function detectBrowserTimezone(): string {
   }
 }
 
-export function createEventOccurrence(
-  event: RecurringEvent,
-  weekStart: Date,
-  targetTimezone: string
-): EventOccurrence | null {
-  const eventDayOffset = (event.dayOfWeek - 1 + 7) % 7;
-  const eventDate = new Date(weekStart);
-  eventDate.setDate(weekStart.getDate() + eventDayOffset);
-
-  const [startHour, startMinute] = event.startTime.split(":").map(Number);
-  const startDate = new Date(eventDate);
-  startDate.setHours(startHour, startMinute, 0, 0);
-
-  let endDate: Date | undefined;
-  if (event.endTime) {
-    const [endHour, endMinute] = event.endTime.split(":").map(Number);
-    endDate = new Date(eventDate);
-    endDate.setHours(endHour, endMinute, 0, 0);
-  }
-
-  const startInGuildTz = fromZonedTime(startDate, GUILD_TIMEZONE);
-  const startInTargetTz = formatInTimeZone(startInGuildTz, targetTimezone, "yyyy-MM-dd'T'HH:mm:ss");
-
-  let endInTargetTz: string | undefined;
-  if (endDate) {
-    const endInGuildTz = fromZonedTime(endDate, GUILD_TIMEZONE);
-    endInTargetTz = formatInTimeZone(endInGuildTz, targetTimezone, "yyyy-MM-dd'T'HH:mm:ss");
-  }
-
-  const localDayIndex = getDay(new Date(startInTargetTz));
-  const localDate = new Date(startInTargetTz);
-
-  return {
-    id: `${event.id}-${formatInTimeZone(startInGuildTz, GUILD_TIMEZONE, "yyyy-MM-dd")}`,
-    eventId: event.id,
-    name: event.name,
-    category: event.category,
-    startTime: startInTargetTz,
-    endTime: endInTargetTz,
-    localDayIndex,
-    localDate,
-    notes: event.notes,
-    isFlexible: event.isFlexible,
-  };
-}
-
 export interface EventOccurrence {
   id: string;
   eventId: string;
@@ -96,66 +97,92 @@ export interface EventOccurrence {
   category: RecurringEvent["category"];
   startTime: string;
   endTime?: string;
+  /** Wall-calendar day (yyyy-MM-dd) of the event in the target display timezone. */
+  wallDate: string;
+  /** 0=Sunday .. 6=Saturday, derived from wallDate for calendar placement. */
   localDayIndex: number;
-  localDate: Date;
   notes?: string;
   isFlexible?: boolean;
 }
 
-export function generateWeekOccurrences(weekStart: Date, targetTimezone: string): EventOccurrence[] {
-  const occurrences: EventOccurrence[] = [];
-  const weekEnd = new Date(weekStart);
-  weekEnd.setDate(weekStart.getDate() + 6);
-  weekEnd.setHours(23, 59, 59, 999);
+export function createEventOccurrence(
+  event: RecurringEvent,
+  weekStartDate: string,
+  targetTimezone: string,
+): EventOccurrence | null {
+  const dayOffset = (event.dayOfWeek - 1 + 7) % 7;
+  const eventDateISO = shiftISODate(weekStartDate, dayOffset);
 
-  function isInCurrentWeek(date: Date): boolean {
-    return date >= weekStart && date <= weekEnd;
+  const startInstant = fromZonedTime(`${eventDateISO}T${event.startTime}:00`, GUILD_TIMEZONE);
+  const startInTarget = formatInTimeZone(startInstant, targetTimezone, "yyyy-MM-dd'T'HH:mm:ss");
+
+  let endTime: string | undefined;
+  if (event.endTime) {
+    const endInstant = fromZonedTime(`${eventDateISO}T${event.endTime}:00`, GUILD_TIMEZONE);
+    endTime = formatInTimeZone(endInstant, targetTimezone, "yyyy-MM-dd'T'HH:mm:ss");
   }
 
+  const wallDate = startInTarget.slice(0, 10);
+  const localDayIndex = dayOfWeekIndex(wallDate);
+
+  return {
+    id: `${event.id}-${formatInTimeZone(startInstant, GUILD_TIMEZONE, "yyyy-MM-dd")}`,
+    eventId: event.id,
+    name: event.name,
+    category: event.category,
+    startTime: startInTarget,
+    endTime,
+    wallDate,
+    localDayIndex,
+    notes: event.notes,
+    isFlexible: event.isFlexible,
+  };
+}
+
+export function generateWeekOccurrences(
+  weekStartDate: string,
+  targetTimezone: string,
+): EventOccurrence[] {
+  const occurrences: EventOccurrence[] = [];
+  const weekEndDate = shiftISODate(weekStartDate, 6);
+
+  const inCurrentWeek = (dayISO: string): boolean => dayISO >= weekStartDate && dayISO <= weekEndDate;
+
   for (const event of recurringEvents) {
-    const occurrence = createEventOccurrence(event, weekStart, targetTimezone);
-    if (occurrence && isInCurrentWeek(occurrence.localDate)) {
+    const occurrence = createEventOccurrence(event, weekStartDate, targetTimezone);
+    if (occurrence && inCurrentWeek(occurrence.wallDate)) {
       occurrences.push(occurrence);
     }
   }
 
-  const prevWeekStart = subWeeks(weekStart, 1);
-  for (const event of recurringEvents) {
-    const occurrence = createEventOccurrence(event, prevWeekStart, targetTimezone);
-    if (occurrence && isInCurrentWeek(occurrence.localDate)) {
-      const exists = occurrences.some((o) => o.id === occurrence.id);
-      if (!exists) occurrences.push(occurrence);
+  for (const offset of [-7, 7]) {
+    const adjacentWeekStart = shiftISODate(weekStartDate, offset);
+    for (const event of recurringEvents) {
+      const occurrence = createEventOccurrence(event, adjacentWeekStart, targetTimezone);
+      if (occurrence && inCurrentWeek(occurrence.wallDate)) {
+        const exists = occurrences.some(existing => existing.id === occurrence.id);
+        if (!exists) occurrences.push(occurrence);
+      }
     }
   }
 
-  const nextWeekStart = addWeeks(weekStart, 1);
-  for (const event of recurringEvents) {
-    const occurrence = createEventOccurrence(event, nextWeekStart, targetTimezone);
-    if (occurrence && isInCurrentWeek(occurrence.localDate)) {
-      const exists = occurrences.some((o) => o.id === occurrence.id);
-      if (!exists) occurrences.push(occurrence);
-    }
-  }
-
-  // Deduplicate by eventId + local calendar date (target timezone)
   const seen = new Set<string>();
-  const deduplicated = occurrences.filter((occ) => {
-    const localDateStr = occ.localDate.toISOString().split("T")[0];
-    const key = `${occ.eventId}-${localDateStr}`;
+  const deduplicated = occurrences.filter(occurrence => {
+    const key = `${occurrence.eventId}-${occurrence.wallDate}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
 
-  return deduplicated.sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
+  return deduplicated.sort(
+    (a, b) => Date.parse(a.startTime) - Date.parse(b.startTime),
+  );
 }
 
 export function groupOccurrencesByDay(occurrences: EventOccurrence[]): EventOccurrence[][] {
   const days: EventOccurrence[][] = [[], [], [], [], [], [], []];
   for (const occ of occurrences) {
     if (occ.localDayIndex >= 0 && occ.localDayIndex <= 6) {
-      // localDayIndex: 0=Sun, 1=Mon, ..., 6=Sat
-      // Calendar index: 0=Mon, 1=Tue, ..., 6=Sun
       const calendarIndex = (occ.localDayIndex + 6) % 7;
       days[calendarIndex].push(occ);
     }
@@ -163,22 +190,15 @@ export function groupOccurrencesByDay(occurrences: EventOccurrence[]): EventOccu
   return days;
 }
 
-export function isToday(date: Date): boolean {
-  const now = new Date();
-  return now.toDateString() === date.toDateString();
-}
-
-export function isEventOngoing(occurrence: EventOccurrence): boolean {
-  const now = new Date();
-  const start = new Date(occurrence.startTime);
-  const end = occurrence.endTime ? new Date(occurrence.endTime) : new Date(start.getTime() + 2 * 60 * 60 * 1000);
-  return now >= start && now < end;
-}
-
-export function getWeekLabel(weekStart: Date): string {
-  const weekEnd = new Date(weekStart);
-  weekEnd.setDate(weekStart.getDate() + 6);
-  const startStr = weekStart.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  const endStr = weekEnd.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-  return `${startStr} - ${endStr}`;
+export function getWeekLabel(weekStartDate: string): string {
+  const start = noonUTC(weekStartDate);
+  const end = noonUTC(shiftISODate(weekStartDate, 6));
+  const short = (date: Date, withYear = false) =>
+    date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      ...(withYear ? { year: "numeric" } : {}),
+      timeZone: "UTC",
+    });
+  return `${short(start)} - ${short(end, true)}`;
 }

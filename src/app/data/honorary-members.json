@@ -5,5 +5,19 @@
     "weapon": "Bellstrike Umbra (Strat & HQ)",
     "image": "/images/members/KaiTingLi.png",
     "quote": "Treat others how you want to be treated."
+  },
+  {
+    "name": "Hīmēkō",
+    "class": "DPS",
+    "weapon": "Strategic Sword/Heavenquaker Spear",
+    "image": "/images/members/Hīmēkō.jpg",
+    "quote": "I just woke up. (passes out again)"
+  },
+  {
+    "name": "神Ayano",
+    "class": "Dps",
+    "weapon": "Strat / Nameless Sword",
+    "image": "/images/members/神Ayano.png",
+    "quote": "Esmiringhoy"
   }
 ]

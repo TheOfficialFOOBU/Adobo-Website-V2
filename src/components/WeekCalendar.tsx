@@ -1,78 +1,72 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo, useRef, type CSSProperties } from "react";
+import { useState, useEffect, useCallback, useMemo, type CSSProperties } from "react";
 import {
-  getWeekStart,
-  getWeekDays,
+  getTargetWeekFrame,
+  getWeekStartDates,
   generateWeekOccurrences,
   groupOccurrencesByDay,
-  isToday,
   getWeekLabel,
   detectBrowserTimezone,
+  type WeekFrame,
 } from "@/lib/timezone";
-import { GUILD_TIMEZONE } from "@/lib/schedule";
 import { DayColumn } from "./DayColumn";
 import { WeekNavigation } from "./WeekNavigation";
 import { FlexibleActivities } from "./FlexibleActivities";
 
-export function WeekCalendar() {
-  const [weekStart, setWeekStart] = useState<Date>(() => {
-    return getWeekStart(new Date());
-  });
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [targetTimezone, setTargetTimezone] = useState<string>(GUILD_TIMEZONE);
+interface WeekCalendarProps {
+  /** Server-prerendered guild week (Manila), used for the hydration pass. */
+  initialFrame: WeekFrame;
+  /** Timezone used to prerender the initial frame; hydrates identical. */
+  initialTimezone: string;
+}
+
+export function WeekCalendar({ initialFrame, initialTimezone }: WeekCalendarProps) {
+  const [frame, setFrame] = useState<WeekFrame>(initialFrame);
+  const [targetTimezone, setTargetTimezone] = useState<string>(initialTimezone);
   const [direction, setDirection] = useState(0);
-  const initializedRef = useRef(false);
 
   useEffect(() => {
-    if (initializedRef.current) return;
-    initializedRef.current = true;
-    setWeekStart(getWeekStart(new Date()));
-    setTargetTimezone(detectBrowserTimezone());
-    setIsInitialized(true);
+    const id = window.setTimeout(() => {
+      const detected = detectBrowserTimezone();
+      setTargetTimezone(detected);
+      setFrame(getTargetWeekFrame(detected));
+    }, 0);
+    return () => window.clearTimeout(id);
   }, []);
 
-  const weekDays = useMemo(() => getWeekDays(weekStart), [weekStart]);
-  const occurrences = useMemo(() => generateWeekOccurrences(weekStart, targetTimezone), [weekStart, targetTimezone]);
+  const weekDays = useMemo(() => getWeekStartDates(frame.weekStartDate), [frame.weekStartDate]);
+  const occurrences = useMemo(() => generateWeekOccurrences(frame.weekStartDate, targetTimezone), [frame.weekStartDate, targetTimezone]);
   const groupedOccurrences = useMemo(() => groupOccurrencesByDay(occurrences), [occurrences]);
-  const weekLabel = getWeekLabel(weekStart);
-  const isTodayWeek = weekDays.some((day) => isToday(day));
+  const weekLabel = getWeekLabel(frame.weekStartDate);
+  const isTodayWeek = weekDays.includes(frame.todayDate);
+
+  const shiftWeek = useCallback((weeks: number) => {
+    setFrame(current => {
+      const [year, month, day] = current.weekStartDate.split("-").map(Number);
+      const mondayUTC = new Date(Date.UTC(year, month - 1, day, 12));
+      mondayUTC.setUTCDate(mondayUTC.getUTCDate() + weeks * 7);
+      return {
+        weekStartDate: mondayUTC.toISOString().slice(0, 10),
+        todayDate: current.todayDate,
+      };
+    });
+  }, []);
 
   const handlePreviousWeek = useCallback(() => {
     setDirection(-1);
-    setWeekStart((prev) => {
-      const newStart = new Date(prev);
-      newStart.setDate(prev.getDate() - 7);
-      return newStart;
-    });
-  }, []);
+    shiftWeek(-1);
+  }, [shiftWeek]);
 
   const handleNextWeek = useCallback(() => {
     setDirection(1);
-    setWeekStart((prev) => {
-      const newStart = new Date(prev);
-      newStart.setDate(prev.getDate() + 7);
-      return newStart;
-    });
-  }, []);
+    shiftWeek(1);
+  }, [shiftWeek]);
 
   const handleToday = useCallback(() => {
     setDirection(0);
-    setWeekStart(getWeekStart(new Date()));
-  }, []);
-
-  if (!isInitialized) {
-    return (
-      <div className="bg-forest">
-        <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-28 text-center lg:px-10 lg:py-32">
-          <div className="flex items-center justify-center gap-3 text-paper">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-gold border-t-transparent" aria-hidden="true" />
-            <span className="font-mono text-[10px] uppercase tracking-[.14em]">Loading calendar...</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
+    setFrame(getTargetWeekFrame(targetTimezone));
+  }, [targetTimezone]);
 
   return (
     <>
@@ -108,17 +102,17 @@ export function WeekCalendar() {
       <section className="bg-paper" aria-label="Weekly events">
         <div className="mx-auto max-w-[1440px] px-6 py-12 lg:px-10 lg:py-16">
           <div
-            key={weekStart.toISOString()}
+            key={frame.weekStartDate}
             className="schedule-week grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-7"
             style={{ "--schedule-shift": direction === 0 ? "0px" : direction > 0 ? "10px" : "-10px" } as CSSProperties}
           >
             {weekDays.map((day, index) => {
               const dayOccurrences = groupedOccurrences[index] || [];
-              const dayIsToday = isToday(day);
+              const dayIsToday = day === frame.todayDate;
 
               return (
                 <DayColumn
-                  key={day.toISOString().split("T")[0]}
+                  key={day}
                   date={day}
                   occurrences={dayOccurrences}
                   isToday={dayIsToday}

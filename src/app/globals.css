@@ -142,6 +142,7 @@
 
 @layer utilities {
   .font-display { font-family: var(--font-display), Georgia, serif; }
+  .font-member-name { font-family: var(--font-display-ext), var(--font-display), Georgia, serif; }
   .font-mono { font-family: var(--font-mono-family), monospace; }
   .paper-grain { background-image: radial-gradient(rgba(36, 39, 34, 0.08) 0.7px, transparent 0.7px); background-size: 7px 7px; }
   .woven-line { background-image: repeating-linear-gradient(52deg, transparent 0 15px, rgba(182,154,102,.22) 15px 16px), repeating-linear-gradient(-52deg, transparent 0 17px, rgba(244,240,231,.14) 17px 18px); mask-image: linear-gradient(to bottom, transparent, black); }
