@@ -34,6 +34,7 @@
     "group": "Core",
     "weapon": "Vernal Umbrella / Inkwell Fan - Vernal Umbrella / Panacea Fan",
     "image": "/images/members/astrophiliac.png",
+    "previewPosition": "25% center",
     "quote": "The Adobo guilds' best Amazing Wanderer at your call. ✨."
   },
   {
@@ -43,6 +44,7 @@
     "group": "Member",
     "weapon": "Infernal Twinblades / Snowparting Blade",
     "image": "/images/members/lanhao.jpg",
+    "previewPosition": "75% center",
     "quote": "She has no idea that the moment she entered my life, every wall I built crumbled, turning her into my favorite thought and the only future I want"
   },
   {
@@ -131,6 +133,7 @@
     "group": "Core",
     "weapon": "Shameless Sword/Spear",
     "image": "/images/members/hybridtheory.jpg",
+    "previewPosition": "75% center",
     "quote": "My name and boss fight mechanics just doesn't belong in the same sentence."
   },
   {
@@ -257,6 +260,7 @@
     "group": "Member",
     "weapon": "current new weapons (always changing, I'm indecisive)",
     "image": "/images/members/Aixhi.jpg",
+    "previewPosition": "25% center",
     "quote": "I like bread, to eat or hit someone with."
   },
   {
@@ -266,6 +270,7 @@
     "group": "Member",
     "weapon": "Stormbreaker Spear / Thundercry Blade",
     "image": "/images/members/Rîn.png",
+    "previewPosition": "75% center",
     "quote": "..."
   },
   {
@@ -321,5 +326,23 @@
     "weapon": "Hengdao",
     "image": "/images/members/馬Rongjie.jpg",
     "quote": "ST and HR kiznapper"
+  },
+  {
+    "name": "QuickXtrike",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Stonesplit Strength",
+    "image": "/images/members/QuickXtrike.jpg",
+    "quote": "Don't let them know about your next move ... be random"
+  },
+  {
+    "name": "Hachi 死",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Stonesplit Strength",
+    "image": "/images/members/Hachi 死.png",
+    "quote": "Nana korobi ya oki"
   }
 ]

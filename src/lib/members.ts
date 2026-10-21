@@ -9,6 +9,7 @@ export type Member = {
   class: string;
   weapon: string;
   image: string;
+  previewPosition?: string;
   quote: string;
   title?: string;
   founder?: boolean;

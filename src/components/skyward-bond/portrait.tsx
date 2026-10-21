@@ -6,7 +6,15 @@ import { useState } from "react";
 const PORTRAIT_SIZES =
   "(max-width: 639px) 240vw, (max-width: 1023px) 120vw, (max-width: 1279px) 800px, 900px";
 
-export function SkywardBondPortrait({ name, portrait }: { name: string; portrait?: string }) {
+export function SkywardBondPortrait({
+  name,
+  portrait,
+  previewPosition,
+}: {
+  name: string;
+  portrait?: string;
+  previewPosition?: string;
+}) {
   const [failedPortrait, setFailedPortrait] = useState<string | null>(null);
   const initial = Array.from(name.trim())[0] ?? "?";
 
@@ -20,6 +28,7 @@ export function SkywardBondPortrait({ name, portrait }: { name: string; portrait
           sizes={PORTRAIT_SIZES}
           quality={90}
           className="object-cover"
+          style={previewPosition ? { objectPosition: previewPosition } : undefined}
           onError={() => setFailedPortrait(portrait)}
         />
       </div>

@@ -55,7 +55,11 @@ function AchievementCard({
 
   return (
     <article className="flex flex-col border border-[#C99A52]/20 bg-[#090A0B]/70 p-5 backdrop-blur-sm">
-      <SkywardBondPortrait name={achievement.name} portrait={achievement.portrait} />
+      <SkywardBondPortrait
+        name={achievement.name}
+        portrait={achievement.portrait}
+        previewPosition={achievement.member?.previewPosition}
+      />
       <div className="flex flex-1 flex-col pt-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <DifficultyBadge achievement={achievement} />

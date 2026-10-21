@@ -31,6 +31,7 @@ export type SkywardBondAchievement = {
   displayName?: string;
   portrait?: string;
   floorsCleared: SkywardBondFloorClear[];
+  recordedAt?: string;
   highestFloor?: number;
   note?: string;
 };
@@ -50,6 +51,7 @@ export type ResolvedSkywardBondAchievement = {
   difficulty: SkywardBondDifficulty | null;
   difficultyLabel: string;
   floorsCleared: SkywardBondFloorClear[];
+  recordedAt?: string;
   highestFloor?: number;
   overallHighest?: SkywardBondClear;
   latestClear?: SkywardBondClear;
@@ -165,12 +167,14 @@ export const skywardBondAchievements: readonly SkywardBondAchievement[] = [
     memberSlug: "schalsweiser",
     difficulty: "normal",
     floorsCleared: [{ floor: 5 }],
+    recordedAt: "2026-10-21T05:30:10+08:00",
   },
   {
     id: "normal-hy-r-the-ry",
     memberSlug: "hy-r-the-ry",
     difficulty: "normal",
     floorsCleared: [{ floor: 5 }],
+    recordedAt: "2026-10-21T05:30:10+08:00",
   },
   {
     id: "normal-rianon",
@@ -266,6 +270,10 @@ export function validateSkywardBondAchievement(record: SkywardBondAchievement): 
     });
   }
 
+  if (record.recordedAt !== undefined && timestampValue(record.recordedAt) === undefined) {
+    errors.push("Record timestamp is invalid.");
+  }
+
   if (record.highestFloor !== undefined) {
     if (!isValidSkywardBondFloor(record.highestFloor)) {
       errors.push(
@@ -331,12 +339,19 @@ export function latestSkywardBondClear(
   if (validClears.length === 0) return undefined;
   if (validClears.length === 1) return validClears[0];
 
-  const timestamps = validClears.map(clear => timestampValue(clear.clearedAt));
-  if (timestamps.some(timestamp => timestamp === undefined)) return undefined;
+  let latest: SkywardBondClear | undefined;
+  let latestTimestamp = Number.NEGATIVE_INFINITY;
 
-  const latestTimestamp = Math.max(...(timestamps as number[]));
-  const latestClears = validClears.filter((_, index) => timestamps[index] === latestTimestamp);
-  return latestClears.length === 1 ? latestClears[0] : undefined;
+  for (const clear of validClears) {
+    const timestamp = timestampValue(clear.clearedAt);
+    if (timestamp === undefined) continue;
+    if (timestamp >= latestTimestamp) {
+      latest = clear;
+      latestTimestamp = timestamp;
+    }
+  }
+
+  return latest;
 }
 
 const membersByName = new Map(members.map(member => [member.name, member]));
@@ -380,6 +395,7 @@ export function resolveSkywardBondAchievements(
       difficulty,
       difficultyLabel: difficulty ? SKYWARD_BOND_DIFFICULTY_LABELS[difficulty] : "Unassigned",
       floorsCleared,
+      recordedAt: firstNonEmpty(record.recordedAt),
       highestFloor,
       errors,
       note: firstNonEmpty(record.note),
@@ -403,7 +419,7 @@ export function resolveSkywardBondAchievements(
       memberRecord.floorsCleared.map(clear => ({
         floor: clear.floor,
         difficulty: memberRecord.difficulty as SkywardBondDifficulty,
-        clearedAt: clear.clearedAt,
+        clearedAt: clear.clearedAt ?? memberRecord.recordedAt,
       })),
     );
 
