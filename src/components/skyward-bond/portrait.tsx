@@ -2,9 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-
-const PORTRAIT_SIZES =
-  "(max-width: 639px) 240vw, (max-width: 1023px) 120vw, (max-width: 1279px) 800px, 900px";
+import { portraitSrc, skywardPortraitSizes } from "@/lib/portraits";
 
 export function SkywardBondPortrait({
   name,
@@ -22,10 +20,10 @@ export function SkywardBondPortrait({
     return (
       <div className="relative aspect-[3/4] overflow-hidden border border-[#C99A52]/20 bg-[#121313]">
         <Image
-          src={portrait}
+          src={portraitSrc(portrait)}
           alt={`${name}, Adobo Wanderer`}
           fill
-          sizes={PORTRAIT_SIZES}
+          sizes={skywardPortraitSizes(portrait)}
           quality={90}
           className="object-cover"
           style={previewPosition ? { objectPosition: previewPosition } : undefined}

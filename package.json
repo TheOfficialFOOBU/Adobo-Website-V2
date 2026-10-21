@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "predev": "node scripts/sync-portrait-metadata.mjs",
     "build": "next build",
+    "prebuild": "node scripts/sync-portrait-metadata.mjs",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "images:sync": "node scripts/sync-portrait-metadata.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

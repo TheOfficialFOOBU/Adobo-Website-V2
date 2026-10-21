@@ -22,6 +22,7 @@ const APPROACH_MS = 700;
 const DOOR_OPEN_MS = 2150;
 const DOOR_FADE_MS = 700;
 const REVEAL_MS = APPROACH_MS + DOOR_OPEN_MS;
+const SEEN_KEY = "skyward-bond-seen";
 
 /**
  * Skyward Bond cinematic: kitchen simmer (0-2s) -> finished serving (2-4s) ->
@@ -29,6 +30,8 @@ const REVEAL_MS = APPROACH_MS + DOOR_OPEN_MS;
  * Scene state is explicit; timers are cleaned up; image loading never gates the
  * sequence, so a slow or failed image cannot strand the visitor. The ledger is
  * server-rendered and remains reachable by normal scrolling without JavaScript.
+ * Within the same browser session, repeat visits skip straight to the
+ * invitation; the doors replay on request so they never lose their impact.
  */
 export function SkywardBondIntro({ children }: { children: ReactNode }) {
   const [stage, setStage] = useState<SceneStage>("simmer");
@@ -63,7 +66,13 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
       setMounted(true);
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       setReducedMotion(prefersReduced);
-      if (prefersReduced) {
+      let hasSeenIntro = false;
+      try {
+        hasSeenIntro = window.sessionStorage.getItem(SEEN_KEY) === "true";
+      } catch {
+        hasSeenIntro = false;
+      }
+      if (prefersReduced || hasSeenIntro) {
         setStage("invitation");
         return;
       }
@@ -78,6 +87,14 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
     timersRef.current.push(bootId);
     return clearTimers;
   }, [clearTimers]);
+
+  const rememberSeen = useCallback(() => {
+    try {
+      window.sessionStorage.setItem(SEEN_KEY, "true");
+    } catch {
+      return;
+    }
+  }, []);
 
   useEffect(() => {
     if (!focusLedger || stage !== "hall") return;
@@ -124,12 +141,14 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
   const skipIntro = useCallback(() => {
     if (enteringRef.current) return;
     clearTimers();
+    rememberSeen();
     setStage(current => (current === "hall" ? current : "invitation"));
-  }, [clearTimers]);
+  }, [clearTimers, rememberSeen]);
 
   const enterFeast = useCallback(() => {
     if (enteringRef.current) return;
     enteringRef.current = true;
+    rememberSeen();
     clearTimers();
     const prefersReduced =
       reducedMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -144,7 +163,7 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
       window.setTimeout(() => setStage(current => (current === "approach" ? "doors" : current)), APPROACH_MS),
       window.setTimeout(finishEntrance, REVEAL_MS + 1000),
     );
-  }, [clearTimers, finishEntrance, reducedMotion]);
+  }, [clearTimers, finishEntrance, rememberSeen, reducedMotion]);
 
 
   return (
