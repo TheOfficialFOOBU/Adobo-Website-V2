@@ -41,7 +41,7 @@ export const videos: Video[] = [
   { title: "Pictorial Gone Wrong", thumbnail: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.jpg", source: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.mp4", label: "Field note 04" },
   { title: "Denying Fanbrella", thumbnail: "/videos/videos/Schalsweiser Denying Fanbrella.jpg", source: "/videos/videos/Schalsweiser Denying Fanbrella.mp4", label: "Field note 05" },
   { title: "Ambón Succy Succy", thumbnail: "/videos/videos/Ambón Succy Succy.jpg", source: "/videos/videos/Ambón Succy Succy.mp4", label: "Field note 06" },
-  { title: "GvG Aura Walk", thumbnail: "/videos/videos/GvG Aura Walk.jpg", source: "https://github.com/TheOfficialFOOBU/Adobo-Website-V2/releases/download/gvg-aura-walk-video/GvG.Aura.Walk.mp4", label: "Field note 07", ratio: "3436 / 1434" },
+  { title: "GvG Aura Walk", thumbnail: "/videos/videos/GvG Aura Walk.jpg", source: "/videos/videos/GvG Aura Walk.mp4", label: "Field note 07", ratio: "3436 / 1434" },
   { title: "Lei's glorious moment", thumbnail: "/videos/videos/Lei's glorious moment.jpg", source: "/videos/videos/Lei's glorious moment.mp4", label: "Field note 08", ratio: "2388 / 1080" },
 ];
 
