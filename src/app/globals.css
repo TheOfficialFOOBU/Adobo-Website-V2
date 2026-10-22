@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@variant dark (&:is(.dark *));
 
 @theme inline {
   --color-forest-deep: #1a1d18;
@@ -312,6 +312,42 @@
   }
 }
 
+/* Hero background video: cinematic looping Where Winds Meet gameplay.
+   Positioned behind the hero overlays and content; never blocks interaction. */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+/* Static poster fallback for the hero video. Hidden by default (the video's
+   own `poster` attribute covers the initial paint); shown under reduced motion
+   or on mobile so the background stays present without playing video. */
+.hero-poster-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: url("/images/events/Guild Picture Aura.webp");
+  z-index: 0;
+  pointer-events: none;
+  display: none;
+}
+
+/* Reduced motion and mobile: swap the looping video for the static poster. */
+@media (prefers-reduced-motion: reduce), (max-width: 640px) {
+  .hero-video { display: none; }
+  .hero-poster-bg { display: block; }
+}
+
 /* Refined navigation underline: grows from the left on hover, focus,
    or when marking the current page. Color transition included. */
 .nav-link {
@@ -402,6 +438,127 @@
   animation: skyward-push 15s cubic-bezier(0.2, 0.55, 0.35, 1) both;
 }
 
+/* The kitchen and pot fade up slowly before the simmer begins. */
+.skyward-reveal {
+  opacity: 0;
+  transform: scale(1.035);
+  transition:
+    opacity 1800ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 2200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.skyward-reveal.is-revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Continuous cooking motion over the pot artwork during the simmer. */
+.skyward-pot-heat {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(26% 12% at 50% 91%, rgba(255, 146, 54, 0.4), rgba(255, 103, 24, 0.12) 56%, transparent 78%),
+    radial-gradient(34% 24% at 50% 57%, rgba(255, 194, 120, 0.2), transparent 70%);
+  mix-blend-mode: screen;
+  animation: skyward-pot-heat 4.8s ease-in-out infinite;
+}
+
+@keyframes skyward-pot-heat {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  35% {
+    opacity: 0.95;
+    transform: translate3d(0, -0.35%, 0) scale(1.012);
+  }
+  70% {
+    opacity: 0.72;
+    transform: translate3d(0, 0.2%, 0) scale(1.004);
+  }
+}
+
+.skyward-pot-steam {
+  position: absolute;
+  top: 6%;
+  left: 33%;
+  width: 28%;
+  height: 38%;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(42% 52% at 46% 64%, rgba(255, 244, 226, 0.44), transparent 72%),
+    radial-gradient(34% 42% at 60% 76%, rgba(255, 230, 199, 0.32), transparent 76%);
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: skyward-pot-steam-rise 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.skyward-pot-steam-b {
+  top: 10%;
+  left: 51%;
+  width: 20%;
+  height: 32%;
+  animation-duration: 9.5s;
+  animation-delay: -3.2s;
+}
+
+@keyframes skyward-pot-steam-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 16%, 0) scale(0.92);
+  }
+  20% {
+    opacity: 0.5;
+  }
+  55% {
+    opacity: 0.38;
+  }
+  85% {
+    opacity: 0.12;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-3%, -22%, 0) scale(1.12);
+  }
+}
+
+.skyward-pot-shimmer {
+  position: absolute;
+  top: 43%;
+  left: 27%;
+  width: 46%;
+  height: 28%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 22% 46%, rgba(255, 224, 176, 0.55) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 63% 61%, rgba(255, 216, 160, 0.4) 0 2px, transparent 4px),
+    radial-gradient(circle at 78% 36%, rgba(255, 236, 196, 0.42) 0 1.2px, transparent 3px),
+    radial-gradient(circle at 41% 72%, rgba(255, 210, 150, 0.38) 0 1.8px, transparent 3.5px);
+  filter: blur(0.6px);
+  mix-blend-mode: screen;
+  animation: skyward-pot-shimmer 3.6s ease-in-out infinite;
+}
+
+@keyframes skyward-pot-shimmer {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translate3d(0, 0, 0);
+  }
+  40% {
+    opacity: 0.75;
+  }
+  70% {
+    opacity: 0.45;
+  }
+}
+
 .skyward-hall-push {
   animation: skyward-push 13s cubic-bezier(0.2, 0.55, 0.35, 1) both;
 }
@@ -477,10 +634,28 @@
   animation: skyward-cue 2.4s ease-in-out infinite;
 }
 
-/* Feathered blend for the opaque square pot artwork over the kitchen scene. */
+/* Feathered blend for the opaque square pot artwork over the kitchen scene.
+   The mask is sized to the object-contain artwork so wide screens cannot expose
+   the square edges of the source image. */
+.skyward-pot-frame {
+  container-type: size;
+}
+
 .skyward-pot-mask {
-  -webkit-mask-image: radial-gradient(ellipse 62% 60% at 50% 55%, #000 45%, transparent 78%);
-  mask-image: radial-gradient(ellipse 62% 60% at 50% 55%, #000 45%, transparent 78%);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  -webkit-mask-size: min(100cqw, 100cqh) min(100cqw, 100cqh);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  mask-size: min(100cqw, 100cqh) min(100cqw, 100cqh);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-composite: intersect;
 }
 
 /* Localized contrast treatment for copy over the photographic scenes. */
@@ -993,9 +1168,17 @@
   .skyward-foreground,
   .skyward-ambient,
   .skyward-ambient-soft,
+  .skyward-pot-heat,
+  .skyward-pot-steam,
+  .skyward-pot-shimmer,
   .skyward-invite-in,
   .skyward-cue {
     animation: none;
+  }
+
+  .skyward-reveal {
+    transition: none;
+    transform: none;
   }
 
   .skyward-cue {

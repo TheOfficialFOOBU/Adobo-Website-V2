@@ -14,32 +14,37 @@ import { createPortal } from "react-dom";
 import { SiteHeader } from "@/components/site-header";
 import { SteamOverlay } from "@/components/skyward-bond/steam-overlay";
 
-type SceneStage = "simmer" | "serving" | "invitation" | "approach" | "doors" | "hall";
+type SceneStage = "reveal" | "simmer" | "serving" | "invitation" | "approach" | "doors" | "hall";
 
-const SIMMER_MS = 2000;
-const SERVING_MS = 2000;
+const SCENE_REVEAL_MS = 1200;
+const SIMMER_MS = 2200;
+const SERVING_MS = 2200;
 const APPROACH_MS = 700;
 const DOOR_OPEN_MS = 2150;
 const DOOR_FADE_MS = 700;
 const REVEAL_MS = APPROACH_MS + DOOR_OPEN_MS;
-const SEEN_KEY = "skyward-bond-seen";
 
 /**
- * Skyward Bond cinematic: kitchen simmer (0-2s) -> finished serving (2-4s) ->
- * invitation (4-6s) -> full-screen doors -> the achievement ledger on request.
- * Scene state is explicit; timers are cleaned up; image loading never gates the
- * sequence, so a slow or failed image cannot strand the visitor. The ledger is
- * server-rendered and remains reachable by normal scrolling without JavaScript.
- * Within the same browser session, repeat visits skip straight to the
- * invitation; the doors replay on request so they never lose their impact.
+ * Skyward Bond cinematic: kitchen reveal (0-1.8s) -> sustained simmer (1.8-7s)
+ * -> finished serving (7-9.2s) -> invitation and button -> full-screen doors ->
+ * the achievement ledger on request. The pot stays mounted and visible through
+ * the whole reveal and simmer; only then does the serving take over. Scene state
+ * is explicit; timers are cleaned up; image loading never gates the sequence, so
+ * a slow or failed image cannot strand the visitor. Reduced motion keeps the
+ * same scene order with the decorative motion removed. A full page load always
+ * replays the intro; the Skip Intro control only affects the current view. The
+ * ledger is server-rendered and remains reachable by normal scrolling without
+ * JavaScript.
  */
 export function SkywardBondIntro({ children }: { children: ReactNode }) {
-  const [stage, setStage] = useState<SceneStage>("simmer");
+  const [stage, setStage] = useState<SceneStage>("reveal");
+  const [revealed, setRevealed] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [focusLedger, setFocusLedger] = useState(false);
   const [gatesRetired, setGatesRetired] = useState(false);
   const timersRef = useRef<number[]>([]);
+  const framesRef = useRef<number[]>([]);
   const enteringRef = useRef(false);
   const completedRef = useRef(false);
   const ledgerRef = useRef<HTMLDivElement | null>(null);
@@ -50,51 +55,71 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
   const gatesOpen = stage === "doors" || entered;
   const gatesDeparting = entered && !gatesRetired;
   const lockScroll = stage === "approach" || stage === "doors";
-  const showingSimmer = stage === "simmer";
+  const showingKitchen = stage === "reveal" || stage === "simmer";
   const showingServing = stage === "serving" || stage === "invitation";
   const showingInvitation = stage === "invitation";
   const invitationInteractive = showingInvitation && !entered;
-  const showingSkip = showingSimmer || showingServing;
+  const showingSkip = showingKitchen || showingServing;
 
   const clearTimers = useCallback(() => {
     for (const id of timersRef.current) window.clearTimeout(id);
+    for (const id of framesRef.current) window.cancelAnimationFrame(id);
     timersRef.current = [];
+    framesRef.current = [];
   }, []);
 
   useEffect(() => {
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    mql.addEventListener("change", onChange);
+
     const bootId = window.setTimeout(() => {
       setMounted(true);
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const prefersReduced = mql.matches;
       setReducedMotion(prefersReduced);
-      let hasSeenIntro = false;
-      try {
-        hasSeenIntro = window.sessionStorage.getItem(SEEN_KEY) === "true";
-      } catch {
-        hasSeenIntro = false;
+
+      const reveal = () => setRevealed(true);
+      if (prefersReduced) {
+        reveal();
+      } else {
+        // Let the scene paint once while concealed so the reveal opacity
+        // transition actually runs instead of being collapsed on first mount.
+        const first = window.requestAnimationFrame(() => {
+          const second = window.requestAnimationFrame(reveal);
+          framesRef.current.push(second);
+        });
+        framesRef.current.push(first);
       }
-      if (prefersReduced || hasSeenIntro) {
-        setStage("invitation");
-        return;
-      }
-      timersRef.current = [
-        window.setTimeout(() => setStage(current => (current === "simmer" ? "serving" : current)), SIMMER_MS),
+
+      // One explicit stage machine. Each callback re-checks the current stage
+      // before advancing so a late skip or remount can never jump ahead.
+      timersRef.current.push(
+        bootId,
         window.setTimeout(
-          () => setStage(current => (current === "simmer" || current === "serving" ? "invitation" : current)),
-          SIMMER_MS + SERVING_MS,
+          () => setStage((current) => (current === "reveal" ? "simmer" : current)),
+          SCENE_REVEAL_MS,
         ),
-      ];
+        window.setTimeout(
+          () =>
+            setStage((current) => (current === "reveal" || current === "simmer" ? "serving" : current)),
+          SCENE_REVEAL_MS + SIMMER_MS,
+        ),
+        window.setTimeout(
+          () =>
+            setStage((current) =>
+              current === "reveal" || current === "simmer" || current === "serving" ? "invitation" : current,
+            ),
+          SCENE_REVEAL_MS + SIMMER_MS + SERVING_MS,
+        ),
+      );
     }, 0);
     timersRef.current.push(bootId);
-    return clearTimers;
-  }, [clearTimers]);
 
-  const rememberSeen = useCallback(() => {
-    try {
-      window.sessionStorage.setItem(SEEN_KEY, "true");
-    } catch {
-      return;
-    }
-  }, []);
+    return () => {
+      clearTimers();
+      mql.removeEventListener("change", onChange);
+    };
+  }, [clearTimers]);
 
   useEffect(() => {
     if (!focusLedger || stage !== "hall") return;
@@ -141,14 +166,12 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
   const skipIntro = useCallback(() => {
     if (enteringRef.current) return;
     clearTimers();
-    rememberSeen();
     setStage(current => (current === "hall" ? current : "invitation"));
-  }, [clearTimers, rememberSeen]);
+  }, [clearTimers]);
 
   const enterFeast = useCallback(() => {
     if (enteringRef.current) return;
     enteringRef.current = true;
-    rememberSeen();
     clearTimers();
     const prefersReduced =
       reducedMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -163,8 +186,7 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
       window.setTimeout(() => setStage(current => (current === "approach" ? "doors" : current)), APPROACH_MS),
       window.setTimeout(finishEntrance, REVEAL_MS + 1000),
     );
-  }, [clearTimers, finishEntrance, rememberSeen, reducedMotion]);
-
+  }, [clearTimers, finishEntrance, reducedMotion]);
 
   return (
     <>
@@ -176,32 +198,42 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
         {/* Stage 1 environment: the wuxia kitchen (Asset 03). */}
         <div
           aria-hidden="true"
-          className={`skyward-layer absolute inset-0 transition-opacity duration-[1200ms] ease-out ${showingSimmer ? "opacity-100" : "opacity-0"}`}
+          className={`skyward-layer absolute inset-0 transition-opacity duration-[1200ms] ease-out ${showingKitchen ? "opacity-100" : "opacity-0"}`}
         >
-          <Image
-            src="/images/skyward-bond/wuxia-kitchen.png"
-            alt=""
-            fill
-            preload
-            sizes="(min-width: 1536px) 1536px, 100vw"
-            className="skyward-push object-cover object-center"
-          />
+          <div className={`skyward-reveal absolute inset-0 ${revealed ? "is-revealed" : ""}`}>
+            <Image
+              src="/images/skyward-bond/wuxia-kitchen.png"
+              alt=""
+              fill
+              preload
+              sizes="(min-width: 1536px) 1536px, 100vw"
+              className="skyward-push object-cover object-center"
+            />
+          </div>
         </div>
 
         {/* Stage 1 focal point: the simmering pot (Asset 01), feathered into the kitchen.
             On small screens the box is kept square so the feather mask tracks the artwork. */}
         <div
           aria-hidden="true"
-          className={`skyward-layer absolute inset-x-0 top-[12%] bottom-[-3%] transition-opacity duration-[1200ms] ease-out max-sm:bottom-auto max-sm:top-1/2 max-sm:aspect-square max-sm:-translate-y-1/2 ${showingSimmer ? "opacity-100" : "opacity-0"}`}
+          className={`skyward-layer skyward-pot-frame absolute inset-x-0 top-[12%] bottom-[-3%] transition-opacity duration-[1200ms] ease-out max-sm:bottom-auto max-sm:top-1/2 max-sm:aspect-square max-sm:-translate-y-1/2 ${showingKitchen ? "opacity-100" : "opacity-0"}`}
         >
-          <Image
-            src="/images/skyward-bond/simmering-pot.png"
-            alt=""
-            fill
-            preload
-            sizes="(max-width: 640px) 100vw, 1200px"
-            className="skyward-push-slow skyward-pot-mask object-contain"
-          />
+          <div
+            className={`skyward-reveal skyward-pot-stage skyward-pot-mask absolute inset-0 ${revealed ? "is-revealed" : ""}`}
+          >
+            <Image
+              src="/images/skyward-bond/simmering-pot.png"
+              alt=""
+              fill
+              preload
+              sizes="(max-width: 640px) 100vw, 1200px"
+              className="skyward-push-slow object-contain"
+            />
+            <div className="skyward-pot-heat" />
+            <div className="skyward-pot-steam skyward-pot-steam-a" />
+            <div className="skyward-pot-steam skyward-pot-steam-b" />
+            <div className="skyward-pot-shimmer" />
+          </div>
         </div>
 
         {/* Stage 2: the finished serving (Asset 02). Mounted from the start so it is
@@ -214,6 +246,7 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
             src="/images/skyward-bond/adobo-serving.png"
             alt=""
             fill
+            preload
             sizes="(min-width: 1536px) 1536px, 100vw"
             className={`object-cover object-center ${showingServing ? "skyward-settle" : ""}`}
           />
@@ -238,7 +271,7 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
         {/* Transparent steam (Asset 04); continues through serving, remains as faint mist in the hall. */}
         <SteamOverlay
           className={`skyward-steam-layer transition-opacity duration-[1400ms] ease-out ${
-            hallVisible ? "opacity-[0.16]" : showingInvitation ? "opacity-40" : "opacity-90"
+            hallVisible ? "opacity-[0.16]" : showingInvitation ? "opacity-40" : revealed ? "opacity-90" : "opacity-0"
           }`}
         />
 
@@ -246,7 +279,7 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
         <div
           aria-hidden="true"
           className={`pointer-events-none absolute inset-0 bg-[radial-gradient(58%_46%_at_68%_32%,rgba(217,137,67,0.22),transparent_70%)] transition-opacity duration-1000 ${
-            entered ? "opacity-0" : "skyward-ambient opacity-70"
+            entered ? "opacity-0" : showingKitchen && !revealed ? "opacity-0" : "skyward-ambient opacity-70"
           }`}
         />
         <div

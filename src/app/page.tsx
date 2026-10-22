@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { activities, featuredMembers, videos } from "@/lib/content";
 import { ActivityCard, VideoCard } from "@/components/media-card";
@@ -20,7 +19,23 @@ function DiscordIcon({ size = 20 }: { size?: number }) {
 export default function Home() {
   return <main className="overflow-hidden bg-paper text-forest">
     <section className="relative min-h-[720px] overflow-hidden bg-forest text-paper lg:min-h-[860px]">
-      <Image src="/images/events/Guild Picture Aura.webp" alt="Adobo Wanderers gathering in the world of Where Winds Meet" fill priority loading="eager" sizes="100vw" className="hero-image object-cover" />
+      {/* Cinematic hero background video (Where Winds Meet gameplay). Falls back
+          to the static poster when playback is unavailable or disabled. */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
+        <video
+          poster="/images/events/Guild Picture Aura.webp"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="hero-video object-cover w-full h-full"
+        >
+          <source src="/videos/hero-loop.mp4" type="video/mp4" />
+        </video>
+        {/* Static poster shown instead of the video under reduced motion or on mobile. */}
+        <div className="hero-poster-bg w-full h-full" aria-hidden="true" />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-t from-forest-deep via-forest-deep/45 to-forest/20" />
       <div className="absolute inset-0 bg-gradient-to-r from-forest-deep/70 via-transparent to-transparent" />
       <div className="pointer-events-none absolute inset-5 hidden border border-paper/15 md:block lg:inset-7" aria-hidden="true" />
