@@ -92,7 +92,7 @@ export default function Home() {
         <Reveal delay={140}>
           <div className="mt-10 flex flex-col items-center justify-center gap-5 sm:flex-row">
             <Link href="https://discord.gg/NdZXkmYJnS" className="pressable group inline-flex items-center gap-5 bg-forest px-7 py-5 font-mono text-[10px] uppercase tracking-[.14em] text-paper transition-colors hover:bg-terracotta">Come wander with us <Arrow /></Link>
-            <Link href="https://discord.gg/adobowwm" target="_blank" rel="noopener noreferrer" className="border-b border-forest/60 py-3 font-mono text-[10px] uppercase tracking-[.14em] text-forest transition-colors hover:border-forest hover:text-terracotta">OR WRITE DISCORD.GG/ADOBOWWM</Link>
+            <Link href="https://discord.gg/NdZXkmYJnS" target="_blank" rel="noopener noreferrer" className="border-b border-forest/60 py-3 font-mono text-[10px] uppercase tracking-[.14em] text-forest transition-colors hover:border-forest hover:text-terracotta">Or join us on Discord</Link>
           </div>
           <p className="mt-8 font-mono text-[9px] uppercase tracking-[.16em] text-forest/60">Nightly gatherings · Manila time (UTC+8) · Come as you are</p>
         </Reveal>
