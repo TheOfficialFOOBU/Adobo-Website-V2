@@ -11,6 +11,7 @@
     "class": "DPS",
     "weapon": "Strategic Sword/Heavenquaker Spear",
     "image": "/images/members/Hīmēkō.jpg",
+    "previewPosition": "center 20%",
     "quote": "I just woke up. (passes out again)"
   },
   {
@@ -19,5 +20,20 @@
     "weapon": "Strat / Nameless Sword",
     "image": "/images/members/神Ayano.png",
     "quote": "Esmiringhoy"
+  },
+  {
+    "name": "hikiiiiii",
+    "class": "DPS",
+    "weapon": "Fan Umbrella",
+    "image": "/images/members/hikiiiiii.jpg",
+    "quote": "I like golden dm"
+  },
+  {
+    "name": "Artemíss",
+    "class": "Healer",
+    "weapon": "Silkbind Deluge",
+    "image": "/images/members/Artemíss.png",
+    "previewPosition": "center 30%",
+    "quote": "I'll heal your heart, then steal your wallet"
   }
 ]

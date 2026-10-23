@@ -20,7 +20,7 @@ export function EventCard({
   const CategoryIcon = categoryIconComponents[occurrence.category];
 
   return (
-    <article className="group min-w-0 py-3.5 transition-transform duration-200 hover:-translate-y-px">
+    <article className="group min-w-0 py-3 transition-transform duration-200 hover:-translate-y-px sm:py-3.5">
       <div className="flex min-w-0 items-start gap-3">
         <span
           className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center border border-border text-terracotta transition-colors duration-200 group-hover:border-terracotta/50"

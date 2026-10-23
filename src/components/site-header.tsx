@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AdoboLogo } from "@/components/adobo-logo";
+import { actionButton } from "@/components/action-button";
 
 const links = [["Home", "/"], ["Members", "/members"], ["Schedule", "/schedule"], ["Skyward", "/skyward-bond"], ["Activities", "/activities"], ["Videos", "/videos"], ["Rules", "/rules"]];
 
@@ -33,7 +34,7 @@ export function SiteHeader() {
       <nav className="hidden items-center gap-8 font-mono text-[10px] uppercase tracking-[.16em] text-paper/75 md:flex" aria-label="Primary navigation">
         {links.map(([label, href]) => <Link key={href} href={href} aria-current={isActiveLink(href, pathname) ? "page" : undefined} className="nav-link hover:text-gold">{label}</Link>)}
       </nav>
-      <div className="hidden md:block"><Link href="https://discord.gg/NdZXkmYJnS" className="pressable border border-gold bg-gold px-5 py-3 font-mono text-[10px] uppercase tracking-[.14em] text-forest transition-colors hover:bg-transparent hover:text-gold">Join us</Link></div>
+      <div className="hidden md:block"><Link href="https://discord.gg/NdZXkmYJnS" className={actionButton({ tone: "primary", size: "compact" })}>Join us</Link></div>
       <button type="button" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)} className="font-mono text-[10px] uppercase tracking-[.16em] md:hidden">
         {open ? "Close" : "Menu"}
       </button>

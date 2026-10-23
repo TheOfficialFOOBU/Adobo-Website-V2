@@ -6,6 +6,7 @@ import { RulesPreview } from "@/components/rules-preview";
 import { Arrow, SectionLabel, SiteFooter, SiteHeader } from "@/components/site-header";
 import { MemberCard } from "@/components/member-card";
 import { AdoboLogo } from "@/components/adobo-logo";
+import { actionButton } from "@/components/action-button";
 import { Reveal } from "@/components/reveal";
 
 function DiscordIcon({ size = 20 }: { size?: number }) {
@@ -45,12 +46,12 @@ export default function Home() {
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,320px)] lg:gap-16">
           <div className="max-w-4xl min-w-0">
             <div className="hero-enter"><SectionLabel light>A GUILD IN WHERE WINDS MEET</SectionLabel></div>
-            <h1 className="hero-enter mt-7 font-display text-[clamp(3.6rem,8.5vw,7.5rem)] leading-[.85] tracking-[-.06em]" style={{ animationDelay: "120ms" }}>Where we put FUN<br /><em className="font-normal text-gold">in FUNtastic.</em></h1>
+            <h1 className="hero-enter mt-7 font-display text-[clamp(3.6rem,8.5vw,7.5rem)] leading-[.9] tracking-[-.05em]" style={{ animationDelay: "120ms" }}>Where we put FUN<br /><em className="font-normal text-gold">in FUNtastic.</em></h1>
             <p className="hero-enter mt-8 max-w-md text-lg leading-relaxed text-paper/80" style={{ animationDelay: "240ms" }}>A place for Wanderers who would rather enjoy the journey than chase the finish line.</p>
           </div>
           <div className="hero-enter flex w-full max-w-md flex-col items-stretch gap-4 sm:max-w-sm lg:justify-self-end lg:self-center" style={{ animationDelay: "320ms" }}>
-            <Link href="https://discord.gg/NdZXkmYJnS" className="pressable group flex w-full items-center justify-center gap-3 bg-gold px-8 py-5 font-mono text-[11px] uppercase tracking-[.14em] text-forest transition-colors hover:bg-paper"><DiscordIcon /><span>Join Our Discord</span></Link>
-            <Link href="/members" className="inline-flex w-full items-center justify-center gap-3 border border-paper/35 px-6 py-4 font-mono text-[10px] uppercase tracking-[.14em] text-paper/85 transition-colors hover:border-gold hover:text-gold">Meet the Wanderers</Link>
+            <Link href="https://discord.gg/NdZXkmYJnS" className={`${actionButton({ tone: "primary" })} w-full`}><DiscordIcon /><span>Join Our Discord</span></Link>
+            <Link href="/members" className={`${actionButton({ tone: "secondary" })} w-full`}>Meet the Wanderers</Link>
           </div>
         </div>
         <dl className="hero-enter mt-16 grid max-w-3xl grid-cols-1 gap-4 border-t border-paper/20 pt-6 sm:grid-cols-3 sm:gap-6" style={{ animationDelay: "420ms" }}>
@@ -91,7 +92,7 @@ export default function Home() {
         </Reveal>
         <Reveal delay={140}>
           <div className="mt-10 flex flex-col items-center justify-center gap-5 sm:flex-row">
-            <Link href="https://discord.gg/NdZXkmYJnS" className="pressable group inline-flex items-center gap-5 bg-forest px-7 py-5 font-mono text-[10px] uppercase tracking-[.14em] text-paper transition-colors hover:bg-terracotta">Come wander with us <Arrow /></Link>
+            <Link href="https://discord.gg/NdZXkmYJnS" className={`${actionButton({ tone: "inverse" })} group`}>Come wander with us <Arrow /></Link>
             <Link href="https://discord.gg/NdZXkmYJnS" target="_blank" rel="noopener noreferrer" className="border-b border-forest/60 py-3 font-mono text-[10px] uppercase tracking-[.14em] text-forest transition-colors hover:border-forest hover:text-terracotta">Or join us on Discord</Link>
           </div>
           <p className="mt-8 font-mono text-[9px] uppercase tracking-[.16em] text-forest/60">Nightly gatherings · Manila time (UTC+8) · Come as you are</p>

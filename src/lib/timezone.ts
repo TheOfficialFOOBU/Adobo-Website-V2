@@ -1,7 +1,11 @@
 import { formatInTimeZone, fromZonedTime } from "date-fns-tz";
-import { GUILD_TIMEZONE, recurringEvents, type RecurringEvent } from "./schedule";
-
-export { formatInTimeZone } from "date-fns-tz";
+import {
+  GUILD_TIMEZONE,
+  recurringEvents,
+  weekdayNames,
+  weekdayShortNames,
+  type RecurringEvent,
+} from "./schedule";
 
 /**
  * A week frame is the calendar week shown by the schedule, expressed as plain
@@ -48,18 +52,6 @@ export function getTargetWeekFrame(
 export function getWeekStartDates(weekStartDate: string): string[] {
   return Array.from({ length: 7 }, (_, index) => shiftISODate(weekStartDate, index));
 }
-
-const weekdayNames = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-const weekdayShortNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 export function formatWeekdayName(dateISO: string, short = false): string {
   return (short ? weekdayShortNames : weekdayNames)[dayOfWeekIndex(dateISO)];

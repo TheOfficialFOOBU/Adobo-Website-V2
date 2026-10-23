@@ -41,8 +41,7 @@ export function VideoCard({ video }: { video: Video }) {
           <Play size={14} fill="currentColor" />
         </span>
       </div>
-      <p className="mt-4 font-mono text-[9px] uppercase tracking-[.15em] text-gold">{video.label}</p>
-      <h3 className="mt-2 font-display text-2xl text-paper">{video.title}</h3>
+      <h3 className="mt-4 font-display text-2xl text-paper">{video.title}</h3>
     </article>
   );
 }

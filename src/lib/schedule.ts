@@ -167,22 +167,6 @@ export const flexibleActivities: FlexibleActivity[] = [
   },
 ];
 
-export const categoryIcons: Record<EventCategory, string> = {
-  "guild-party": "users",
-  showdown: "swords",
-  "breaking-army": "flame",
-  "guild-war": "shield",
-  "ranked-guild-war": "trophy",
-};
-
-export const categoryLabels: Record<EventCategory, string> = {
-  "guild-party": "Guild Party",
-  showdown: "Showdown",
-  "breaking-army": "Breaking Army",
-  "guild-war": "Guild War",
-  "ranked-guild-war": "Ranked Guild War",
-};
-
 export const weekdayNames = [
   "Sunday",
   "Monday",

@@ -1,7 +1,6 @@
 import { members } from "@/lib/members";
 
 export type { Member } from "@/lib/members";
-export { members, memberSlug } from "@/lib/members";
 
 const featuredNames = ["FOOBU", "Hrafna", "Maxisle"];
 export const featuredMembers = featuredNames.map(name => {
@@ -11,7 +10,7 @@ export const featuredMembers = featuredNames.map(name => {
 });
 
 export type Activity = { title: string; image: string; label: string; description: string };
-export type Video = { title: string; thumbnail?: string; source: string; label: string; ratio?: string };
+export type Video = { title: string; thumbnail?: string; source: string; ratio?: string };
 
 export const activities: Activity[] = [
   { title: "Guild gatherings", image: "/images/events/Pogi-1600.webp", label: "In good company", description: "The people, screenshots, and stories that make an ordinary session worth remembering." },
@@ -31,18 +30,20 @@ export const activities: Activity[] = [
   { title: "First steps", image: "/images/events/1.JPG-1600.webp", label: "Where it began", description: "The first gathering. The first story. The rest followed." },
   { title: "Rozo LB", image: "/images/events/Rozo LB.png", label: "From the road", description: "Another page from the road, kept the way it happened." },
   { title: "Rozo LB2", image: "/images/events/rozo-lb2-v2.png", label: "Another bend", description: "Same road, another moment worth keeping." },
+  { title: "Rozo LB3", image: "/images/events/Rozo LB3.png", label: "Further along", description: "The road keeps going, and the story goes with it." },
+  { title: "Rozo LB4", image: "/images/events/Rozo LB4.png", label: "Still wandering", description: "Another page from the same journey, kept the way it happened." },
   { title: "Cali Mid", image: "/images/events/Cali Mid.png", label: "Mid-journey", description: "Caught mid-journey, right where the story lives." },
 ];
 
 export const videos: Video[] = [
-  { title: "Adobo Airlines", thumbnail: "/videos/videos/Ambón POV Adobo Airlines.jpg", source: "/videos/videos/Ambón POV Adobo Airlines.mp4", label: "Field note 01" },
-  { title: "Mahjong Distraction", thumbnail: "/videos/videos/Ambón POV Mahjong Distraction.jpg", source: "/videos/videos/Ambón POV Mahjong Distraction.mp4", label: "Field note 02" },
-  { title: "Aura Farm", thumbnail: "/videos/videos/Calialy Aura Farm.jpg", source: "/videos/videos/Calialy Aura Farm.mp4", label: "Field note 03" },
-  { title: "Pictorial Gone Wrong", thumbnail: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.jpg", source: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.mp4", label: "Field note 04" },
-  { title: "Denying Fanbrella", thumbnail: "/videos/videos/Schalsweiser Denying Fanbrella.jpg", source: "/videos/videos/Schalsweiser Denying Fanbrella.mp4", label: "Field note 05" },
-  { title: "Ambón Succy Succy", thumbnail: "/videos/videos/Ambón Succy Succy.jpg", source: "/videos/videos/Ambón Succy Succy.mp4", label: "Field note 06" },
-  { title: "GvG Aura Walk", thumbnail: "/videos/videos/GvG Aura Walk.jpg", source: "/videos/videos/GvG Aura Walk.mp4", label: "Field note 07", ratio: "3436 / 1434" },
-  { title: "Lei's glorious moment", thumbnail: "/videos/videos/Lei's glorious moment.jpg", source: "/videos/videos/Lei's glorious moment.mp4", label: "Field note 08", ratio: "2388 / 1080" },
+  { title: "Adobo Airlines", thumbnail: "/videos/videos/Ambón POV Adobo Airlines.jpg", source: "/videos/videos/Ambón POV Adobo Airlines.mp4" },
+  { title: "Mahjong Distraction", thumbnail: "/videos/videos/Ambón POV Mahjong Distraction.jpg", source: "/videos/videos/Ambón POV Mahjong Distraction.mp4" },
+  { title: "Aura Farm", thumbnail: "/videos/videos/Calialy Aura Farm.jpg", source: "/videos/videos/Calialy Aura Farm.mp4", ratio: "1920 / 802" },
+  { title: "Pictorial Gone Wrong", thumbnail: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.jpg", source: "/videos/videos/HyßrıðTheøry Pictorial Gone Wrong.mp4", ratio: "1062 / 480" },
+  { title: "Denying Fanbrella", thumbnail: "/videos/videos/Schalsweiser Denying Fanbrella.jpg", source: "/videos/videos/Schalsweiser Denying Fanbrella.mp4" },
+  { title: "Ambón Succy Succy", thumbnail: "/videos/videos/Ambón Succy Succy.jpg", source: "/videos/videos/Ambón Succy Succy.mp4" },
+  { title: "GvG Aura Walk", thumbnail: "/videos/videos/GvG Aura Walk.jpg", source: "/videos/videos/GvG Aura Walk.mp4", ratio: "3436 / 1434" },
+  { title: "Lei's glorious moment", thumbnail: "/videos/videos/Lei's glorious moment.jpg", source: "/videos/videos/Lei's glorious moment.mp4", ratio: "2388 / 1080" },
 ];
 
 export const faqs = [

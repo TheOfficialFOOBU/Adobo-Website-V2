@@ -64,7 +64,7 @@ function AchievementCard({
           <DifficultyBadge achievement={achievement} />
         </div>
 
-        <Heading className="mt-4 font-display text-2xl leading-tight">{name}</Heading>
+        <Heading className="mt-4 font-member-name text-2xl leading-tight">{name}</Heading>
 
         <dl className="mt-5 grid gap-4 border-t border-[#C99A52]/15 pt-4 sm:grid-cols-2 lg:grid-cols-1">
           <div>
@@ -343,7 +343,7 @@ export function SkywardBondGallery({
               <ul className="mt-6 space-y-5">
                 {invalid.map((record, index) => (
                   <li key={`${record.id}-${index}`} className="border-t border-[#B7654B]/25 pt-4">
-                    <p className="font-display text-lg text-[#E9DCC6]">
+                    <p className="font-member-name text-lg text-[#E9DCC6]">
                       {record.name}{" "}
                       <span className="font-mono text-[9px] uppercase tracking-[.16em] text-[#A8A6A0]">
                         {record.difficultyLabel}

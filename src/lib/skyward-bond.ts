@@ -173,7 +173,7 @@ export const skywardBondAchievements: readonly SkywardBondAchievement[] = [
     id: "normal-hy-r-the-ry",
     memberSlug: "hy-r-the-ry",
     difficulty: "normal",
-    floorsCleared: [{ floor: 5 }],
+    floorsCleared: [{ floor: 10 }, { floor: 5 }],
     recordedAt: "2026-10-21T05:30:10+08:00",
   },
   {
@@ -199,6 +199,67 @@ export const skywardBondAchievements: readonly SkywardBondAchievement[] = [
     memberSlug: "heuphemia",
     difficulty: "normal",
     floorsCleared: [{ floor: 5 }],
+  },
+  {
+    id: "normal-diassha",
+    memberSlug: "diassha",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
+  },
+  {
+    id: "normal-ilindawalkeri",
+    memberSlug: "ilindawalkeri",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
+  },
+  {
+    id: "normal-vermouth",
+    memberSlug: "vermouth",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
+  },
+  {
+    id: "normal-ninjatim",
+    memberSlug: "ninjatim",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
+  },
+  {
+    id: "normal-rin",
+    memberSlug: "rin",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
+  },
+  {
+    id: "normal-ambon",
+    memberSlug: "ambon",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
+  },
+  {
+    id: "normal-yinhuanyong",
+    memberSlug: "yinhuanyong",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
+  },
+  {
+    id: "normal-rozo",
+    memberSlug: "rozo",
+    displayName: "Rozō",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
+  },
+  {
+    id: "normal-marisse",
+    displayName: "Marisse",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
+  },
+  {
+    id: "normal-foobu",
+    memberSlug: "foobu",
+    difficulty: "normal",
+    floorsCleared: [{ floor: 10 }],
   },
 ];
 

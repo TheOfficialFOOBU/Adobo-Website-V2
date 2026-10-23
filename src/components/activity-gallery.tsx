@@ -29,6 +29,8 @@ const SOURCE_DIMENSIONS: Record<string, { width: number; height: number }> = {
   "/images/events/1.JPG-1600.webp": { width: 1600, height: 900 },
   "/images/events/Rozo LB.png": { width: 1803, height: 843 },
   "/images/events/rozo-lb2-v2.png": { width: 1919, height: 876 },
+  "/images/events/Rozo LB3.png": { width: 2559, height: 1439 },
+  "/images/events/Rozo LB4.png": { width: 1838, height: 944 },
   "/images/events/Cali Mid.png": { width: 705, height: 342 },
 };
 

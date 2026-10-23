@@ -12,6 +12,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { SiteHeader } from "@/components/site-header";
+import { actionButton } from "@/components/action-button";
 import { SteamOverlay } from "@/components/skyward-bond/steam-overlay";
 
 type SceneStage = "reveal" | "simmer" | "serving" | "invitation" | "approach" | "doors" | "hall";
@@ -346,7 +347,7 @@ export function SkywardBondIntro({ children }: { children: ReactNode }) {
                 <button
                   type="button"
                   onClick={enterFeast}
-                  className="pressable border border-[#C99A52]/80 bg-[#090A0B]/80 px-10 py-5 font-display text-sm uppercase tracking-[.26em] text-[#E9DCC6] shadow-[0_10px_30px_rgba(9,10,11,0.35)] transition-colors duration-300 hover:border-[#C99A52] hover:bg-[#C99A52]/15 hover:text-[#F3E8D4]"
+                  className={actionButton({ tone: "skyward", size: "wide" })}
                 >
                   Enter the Feast
                 </button>
