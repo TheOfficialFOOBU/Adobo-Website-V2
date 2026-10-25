@@ -280,7 +280,7 @@
     "group": "Member",
     "weapon": "Shameless Sword/Spear",
     "image": "/images/members/RyuuMickael.jpg",
-    "quote": "HBD Snowfluff"
+    "quote": "Papi Papi Poom"
   },
   {
     "name": "NinjaTIM",
@@ -353,5 +353,24 @@
     "weapon": "Umbra",
     "image": "/images/members/Rozō.jpg",
     "quote": "I am speed"
+  },
+  {
+    "name": "Venus다다",
+    "class": "DPS",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Silkbind Jade",
+    "image": "/images/members/Venus다다.png",
+    "quote": ""
+  },
+  {
+    "name": "XxZareeNxX",
+    "class": "Healer",
+    "position": "Member",
+    "group": "Member",
+    "weapon": "Silkbind Deluge and Wings",
+    "image": "/images/members/XxZareeNxX.jpg",
+    "previewPosition": "45% center",
+    "quote": ""
   }
 ]
